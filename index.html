@@ -7,10 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #1A1A1A;
-            --gold: #C59B2F;
-            --cream: #FDF6D8;
-            --white: #FFFFFF;
+            /* Paleta de Colores de Orbital Kronnos */
+            --bg-dark: #1A1A1A;     /* Negro Carbón */
+            --gold: #C59B2F;       /* Dorado Antiguo */
+            --cream: #FDF6D8;      /* Crema Luminoso */
+            --white: #FFFFFF;      /* Blanco */
         }
 
         body {
@@ -19,193 +20,414 @@
             font-family: 'Rajdhani', sans-serif;
             background-color: var(--bg-dark);
             color: var(--cream);
+            line-height: 1.6;
         }
 
-        /* Cabecera / Hero Section */
+        /* --- Cabecera / Hero Section --- */
         .hero {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 5%;
-            background: linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(26,26,26,0.8) 100%), url('fondo-hero.jpg') center/cover;
+            position: relative;
+            background-image: url('bg.png'); /* IMAGEN DE FONDO */
+            background-size: cover;
+            background-position: center;
+            padding: 20px 5% 50px;
             border-bottom: 3px solid var(--gold);
         }
 
-        .hero-left {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); /* Superposición oscura para leer mejor */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Descripción arriba */
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--white);
+            background-color: rgba(26,26,26,0.7);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* Título a la izquierda con logo */
+        .hero-bottom {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 20px;
         }
 
         .logo {
-            width: 100px;
+            width: 80px;
             height: auto;
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
             color: var(--gold);
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        .hero-description {
-            max-width: 500px;
-            font-size: 1.2rem;
-            color: var(--white);
-            text-align: right;
-            line-height: 1.5;
-        }
-
-        /* Sección de Miembros */
+        /* --- Títulos Generales --- */
         .section-title {
             text-align: center;
             font-family: 'Orbitron', sans-serif;
             color: var(--gold);
             font-size: 2.5rem;
-            margin: 50px 0 30px;
+            margin: 60px 0 40px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--gold);
+        }
+
+        /* --- Sección de Miembros (Disposición Alternante) --- */
+        .members {
             padding: 0 5%;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto 60px;
         }
 
         .member-card {
-            background-color: rgba(255,255,255,0.05);
-            border: 1px solid var(--gold);
-            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            gap: 30px;
+            background-color: rgba(255,255,255,0.03);
+            border-radius: 12px;
             padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
+            border: 1px solid rgba(197, 155, 47, 0.2);
+            transition: all 0.3s ease;
         }
 
         .member-card:hover {
             transform: translateY(-5px);
-            background-color: rgba(197, 155, 47, 0.1);
+            border-color: var(--gold);
+            background-color: rgba(197, 155, 47, 0.05);
         }
 
-        /* Sección del Robot 3D */
+        /* Alternar orden de imagen y texto */
+        .member-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .member-text-block {
+            flex: 1;
+        }
+
+        .member-name-block {
+            background-color: rgba(197, 155, 47, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid var(--gold);
+            display: inline-block;
+        }
+
+        .member-name {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--white);
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .member-desc-block {
+            background-color: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid var(--gold);
+            border-top: none;
+            color: var(--cream);
+        }
+
+        .member-image-block {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Sección del Robot 3D --- */
         .robot-section {
             text-align: center;
             margin: 60px 0;
             padding: 0 5%;
         }
 
-        .robot-image {
+        .robot-image-container {
             max-width: 100%;
             width: 600px;
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(197, 155, 47, 0.3);
+            margin: 0 auto;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.05);
+            box-shadow: 0 0 30px rgba(197, 155, 47, 0.4);
         }
 
-        /* Sección de Donaciones */
+        .robot-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* --- Sección de Donaciones --- */
         .donations {
             background-color: #111;
-            padding: 50px 5%;
+            padding: 60px 5%;
             text-align: center;
             border-top: 2px solid var(--gold);
         }
 
-        .donation-links {
+        .donation-options {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
         }
 
         .btn-donate {
-            padding: 15px 30px;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            border-radius: 5px;
-            color: var(--bg-dark);
-            transition: opacity 0.3s;
+            transition: transform 0.3s;
         }
 
-        .btn-donate:hover { opacity: 0.8; }
-        .btn-paypal { background-color: #00457C; color: var(--white); }
-        .btn-kofi { background-color: #FF5E5B; color: var(--white); }
-        .btn-wompi { background-color: #4A90E2; color: var(--white); } /* Ajusta el color exacto de Wompi */
+        .btn-donate:hover {
+            transform: scale(1.1);
+        }
+
+        .donation-logo {
+            height: 50px; /* Ajusta la altura de los logos */
+            width: auto;
+        }
 
         /* Barra de Progreso */
         .progress-container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             text-align: left;
+            background-color: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--gold);
         }
 
         .progress-bar-bg {
             width: 100%;
             background-color: #333;
             border-radius: 20px;
-            height: 30px;
-            margin-top: 10px;
+            height: 35px;
+            margin-top: 15px;
             overflow: hidden;
-            border: 1px solid var(--gold);
+            border: 2px solid var(--gold);
+            position: relative;
         }
 
         .progress-bar-fill {
             height: 100%;
             background-color: var(--gold);
-            /* Cambia el % de width para ajustar cuánto llevan recaudado */
-            width: 25%; 
+            width: 25%; /* ESTADO ACTUAL DE PROGRESO ($100/$400) */
             transition: width 0.5s ease-in-out;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
+            justify-content: center;
             color: var(--bg-dark);
             font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .progress-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--cream);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .member-card { flex-direction: column; text-align: center; }
+            .member-card:nth-child(even) { flex-direction: column; }
+            .member-image-block { margin-top: 20px; }
+            .hero-bottom { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
 
     <header class="hero">
-        <div class="hero-left">
-            <img src="logo-kronnos.png" alt="Logo Orbital Kronnos" class="logo">
-            <h1>Orbital<br>Kronnos</h1>
-        </div>
-        <div class="hero-description">
-            <p>Aquí puedes escribir la descripción de tu equipo. Habla sobre su misión, la pasión por la tecnología, las competiciones en las que participan y lo que los hace únicos como Orbital Kronnos.</p>
+        <div class="hero-content">
+            <div class="hero-description">
+                <p>Aquí puedes escribir la descripción de tu equipo. Habla sobre su misión, la pasión por la tecnología, las competiciones en las que participan y lo que los hace únicos como Orbital Kronnos.</p>
+            </div>
+            <div class="hero-bottom">
+                <img src="logo-kronnos.png" alt="Logo Orbital Kronnos" class="logo">
+                <h1>Orbital<br>Kronnos</h1>
+            </div>
         </div>
     </header>
 
-    <section>
+    <section class="members">
         <h2 class="section-title">Nuestro Equipo</h2>
-        <div class="members-grid">
-            <div class="member-card"><h3>Miembro 1</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 2</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 3</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 4</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 5</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 6</h3><p>Rol / Especialidad</p></div>
-            <div class="member-card"><h3>Miembro 7</h3><p>Rol / Especialidad</p></div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Ana García</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Líder del equipo y experta en programación de sistemas de control. Su pasión por la IA impulsa la innovación.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-1.jpg" alt="Foto de Ana García" class="member-image">
+            </div>
         </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Juan López</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Especialista en diseño mecánico y fabricación digital. Diseña las estructuras robustas y eficientes.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-2.jpg" alt="Foto de Juan López" class="member-image">
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">María Rodríguez</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Ingeniera electrónica encargada de los circuitos y sensores. Asegura la comunicación perfecta.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-3.jpg" alt="Foto de María Rodríguez" class="member-image">
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Carlos Pérez</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Desarrollador de software especializado en visión computacional y navegación autónoma.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-4.jpg" alt="Foto de Carlos Pérez" class="member-image">
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Laura Martínez</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Responsable de marketing y patrocinio. Conecta a Orbital Kronnos con la comunidad.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-5.jpg" alt="Foto de Laura Martínez" class="member-image">
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Pedro Sánchez</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Experto en impresión 3D y prototipado rápido. Convierte ideas en modelos físicos.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-6.jpg" alt="Foto de Pedro Sánchez" class="member-image">
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-text-block">
+                <div class="member-name-block">
+                    <h3 class="member-name">Sofía Díaz</h3>
+                </div>
+                <div class="member-desc-block">
+                    <p>Ingeniera de sistemas enfocada en la integración y pruebas de fiabilidad del robot.</p>
+                </div>
+            </div>
+            <div class="member-image-block">
+                <img src="member-7.jpg" alt="Foto de Sofía Díaz" class="member-image">
+            </div>
+        </div>
+
     </section>
 
     <section class="robot-section">
-        <h2 class="section-title">Nuestro Robot</h2>
-        <img src="robot-3d.png" alt="Modelo 3D del Robot" class="robot-image">
+        <h2 class="section-title">Nuestro Robot (Modelo 3D)</h2>
+        <div class="robot-image-container">
+            <img src="robot-3d.png" alt="Modelo 3D del Robot" class="robot-image">
+        </div>
     </section>
 
     <section class="donations">
         <h2 class="section-title">Apoya Nuestro Proyecto</h2>
         
-        <div class="donation-links">
-            <a href="URL_PAYPAL" class="btn-donate btn-paypal" target="_blank">Donar vía PayPal</a>
-            <a href="URL_KOFI" class="btn-donate btn-kofi" target="_blank">Apoyar en Ko-fi</a>
-            <a href="URL_WOMPI" class="btn-donate btn-wompi" target="_blank">Donar vía Wompi</a>
+        <div class="donation-options">
+            <a href="URL_PAYPAL" class="btn-donate" target="_blank">
+                <img src="paypal-logo.png" alt="Logo PayPal" class="donation-logo">
+            </div>
+            <a href="URL_KOFI" class="btn-donate" target="_blank">
+                <img src="kofi-logo.png" alt="Logo Ko-fi" class="donation-logo">
+            </a>
+            <a href="URL_WOMPI" class="btn-donate" target="_blank">
+                <img src="wompi-logo.png" alt="Logo Wompi" class="donation-logo">
+            </a>
         </div>
 
         <div class="progress-container">
@@ -214,8 +436,9 @@
                 <div class="progress-bar-fill" style="width: 25%;">
                     $100
                 </div>
+                <div class="progress-text">Progreso: 25%</div>
             </div>
-            <p style="text-align: right; margin-top: 5px; color: var(--cream);">Faltan $300 para la meta</p>
+            <p style="text-align: right; margin-top: 10px; color: var(--cream);">¡Gracias por tu apoyo!</p>
         </div>
     </section>
 
