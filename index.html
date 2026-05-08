@@ -7,7 +7,6 @@
 <meta name="description" content="Orbital Kronnos: equipo de robótica de El Salvador rumbo a la STEAM Maker Challenge. Conoce al equipo, nuestro reto y apoya el proyecto." />
 <link rel="icon" href="images/logo.png" />
 
-<!-- ✅ PRELOAD: imágenes críticas del hero se descargan primero -->
 <link rel="preload" as="image" href="images/fondo.webp" type="image/webp" />
 <link rel="preload" as="image" href="images/reloj.webp" type="image/webp" />
 
@@ -35,7 +34,6 @@
 
 <main id="top">
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -54,7 +52,6 @@
       </div>
 
       <div class="hero-clock reveal-right">
-        <!-- ✅ EAGER: imagen del hero se carga de inmediato, con WebP y fallback -->
         <picture>
           <source srcset="images/reloj.webp" type="image/webp" />
           <img src="images/reloj.png" alt="Reloj Kronnos" loading="eager" fetchpriority="high" />
@@ -65,7 +62,6 @@
     <div class="hero-divider"></div>
   </section>
 
-  <!-- RETO / SMC -->
   <section id="robot" class="section container reveal">
     <p class="eyebrow center">— Nuestra misión —</p>
     <h2 class="section-title">STEAM Maker Challenge</h2>
@@ -107,7 +103,6 @@
     </div>
   </section>
 
-  <!-- EQUIPO -->
   <section id="equipo" class="equipo-section">
     <div class="container equipo-head reveal">
       <p class="eyebrow center">— Los relojeros —</p>
@@ -117,7 +112,6 @@
 
     <div class="members-grid">
 
-      <!-- ✅ LAZY: todos los miembros se cargan solo cuando el usuario llega -->
       <article class="member reveal">
         <div class="member-photo">
           <picture>
@@ -297,7 +291,6 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <!-- ✅ LAZY: logo del footer no es crítico -->
       <picture>
         <source srcset="images/logo.webp" type="image/webp" />
         <img src="images/logo.png" alt="Logo" loading="lazy" />
@@ -312,7 +305,6 @@
 </footer>
 
 <script>
-  // Reveal on scroll
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -323,7 +315,6 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-right').forEach(el => io.observe(el));
 
-  // Animate progress bar when visible
   const goal = document.querySelector('.progress-bar');
   if (goal) {
     const io2 = new IntersectionObserver((entries) => {
@@ -332,7 +323,6 @@
     io2.observe(goal);
   }
 
-  // Header shrink on scroll
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 30) header.classList.add('scrolled');
