@@ -6,6 +6,11 @@
 <title>Orbital Kronnos — Equipo de Robótica</title>
 <meta name="description" content="Orbital Kronnos: equipo de robótica de El Salvador rumbo a la STEAM Maker Challenge. Conoce al equipo, nuestro reto y apoya el proyecto." />
 <link rel="icon" href="images/logo.png" />
+
+<!-- ✅ PRELOAD: imágenes críticas del hero se descargan primero -->
+<link rel="preload" as="image" href="images/fondo.webp" type="image/webp" />
+<link rel="preload" as="image" href="images/reloj.webp" type="image/webp" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
@@ -49,7 +54,11 @@
       </div>
 
       <div class="hero-clock reveal-right">
-        <img src="images/reloj.png" alt="Reloj Kronnos" />
+        <!-- ✅ EAGER: imagen del hero se carga de inmediato, con WebP y fallback -->
+        <picture>
+          <source srcset="images/reloj.webp" type="image/webp" />
+          <img src="images/reloj.png" alt="Reloj Kronnos" loading="eager" fetchpriority="high" />
+        </picture>
       </div>
     </div>
 
@@ -107,18 +116,30 @@
     </div>
 
     <div class="members-grid">
+
+      <!-- ✅ LAZY: todos los miembros se cargan solo cuando el usuario llega -->
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro1.png" alt="David Alejandro" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro1.webp" type="image/webp" />
+            <img src="images/miembro1.png" alt="David Alejandro" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">01 — Capitán</span>
-          <h3>Carlos Andre</h3>
+          <h3>David Alejandro</h3>
           <span class="member-role">Capitán del equipo</span>
           <p>Coordina la estrategia general y el diseño del sistema, asegurando que cada pieza del engranaje funcione sincronizada.</p>
         </div>
       </article>
 
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro2.png" alt="Franklin Elías" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro2.webp" type="image/webp" />
+            <img src="images/miembro2.png" alt="Franklin Elías" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">02 — Mentor</span>
           <h3>Franklin Elías</h3>
@@ -128,7 +149,12 @@
       </article>
 
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro3.png" alt="Stephanie Orantes" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro3.webp" type="image/webp" />
+            <img src="images/miembro3.png" alt="Stephanie Orantes" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">03 — Coordinadora</span>
           <h3>Stephanie Orantes</h3>
@@ -138,17 +164,27 @@
       </article>
 
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro4.png" alt="Carlos Andre" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro4.webp" type="image/webp" />
+            <img src="images/miembro4.png" alt="Carlos Andre" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">04 — Constructor</span>
-          <h3>David Alejandro</h3>
+          <h3>Carlos Andre</h3>
           <span class="member-role">Constructor del equipo</span>
           <p>Especialista en CAD y fabricación digital. Diseña y ensambla las estructuras robustas que dan forma y resistencia al robot.</p>
         </div>
       </article>
 
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro5.png" alt="Cristopher" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro5.webp" type="image/webp" />
+            <img src="images/miembro5.png" alt="Cristopher" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">05 — Driver</span>
           <h3>Cristopher</h3>
@@ -158,7 +194,12 @@
       </article>
 
       <article class="member reveal">
-        <div class="member-photo"><img src="images/miembro6.png" alt="Jose Danelio" /></div>
+        <div class="member-photo">
+          <picture>
+            <source srcset="images/miembro6.webp" type="image/webp" />
+            <img src="images/miembro6.png" alt="Jose Danelio" loading="lazy" />
+          </picture>
+        </div>
         <div class="member-body">
           <span class="member-num">06 — Programador</span>
           <h3>Jose Danelio</h3>
@@ -166,6 +207,7 @@
           <p>El cerebro digital detrás de la máquina. Domina la lógica de control, los algoritmos autónomos y la integración Java/Python.</p>
         </div>
       </article>
+
     </div>
   </section>
 
@@ -183,7 +225,12 @@
 
       <div class="donate-grid">
         <a class="donate-card reveal" href="#" target="_blank" rel="noopener">
-          <div class="donate-img"><img src="images/donate1.png" alt="" /></div>
+          <div class="donate-img">
+            <picture>
+              <source srcset="images/donate1.webp" type="image/webp" />
+              <img src="images/donate1.png" alt="" loading="lazy" />
+            </picture>
+          </div>
           <h3>PayPal</h3>
           <p>Donación segura desde cualquier país.</p>
           <span class="donate-cta">Donar con PayPal →</span>
@@ -191,14 +238,24 @@
 
         <a class="donate-card featured reveal" href="#" target="_blank" rel="noopener">
           <div class="ribbon">Recomendado</div>
-          <div class="donate-img"><img src="images/donate2.png" alt="" /></div>
+          <div class="donate-img">
+            <picture>
+              <source srcset="images/donate2.webp" type="image/webp" />
+              <img src="images/donate2.png" alt="" loading="lazy" />
+            </picture>
+          </div>
           <h3>Ko-fi</h3>
           <p>Invítanos un café y deja tu mensaje al equipo.</p>
           <span class="donate-cta">Donar con Ko-fi →</span>
         </a>
 
         <a class="donate-card reveal" href="#" target="_blank" rel="noopener">
-          <div class="donate-img"><img src="images/donate3.png" alt="" /></div>
+          <div class="donate-img">
+            <picture>
+              <source srcset="images/donate3.webp" type="image/webp" />
+              <img src="images/donate3.png" alt="" loading="lazy" />
+            </picture>
+          </div>
           <h3>Wompi</h3>
           <p>Pagos rápidos y locales por transferencia o tarjeta.</p>
           <span class="donate-cta">Donar con Wompi →</span>
@@ -240,7 +297,11 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <img src="images/logo.png" alt="Logo" />
+      <!-- ✅ LAZY: logo del footer no es crítico -->
+      <picture>
+        <source srcset="images/logo.webp" type="image/webp" />
+        <img src="images/logo.png" alt="Logo" loading="lazy" />
+      </picture>
       <div>
         <strong>Orbital Kronnos</strong>
         <p>Equipo de Robótica · STEAM Maker Challenge · El Salvador</p>
