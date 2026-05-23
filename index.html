@@ -4,14 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Orbital Kronnos — Equipo de Robótica</title>
-<meta name="description" content="Orbital Kronnos: equipo de robótica de El Salvador rumbo a la STEAM Maker Challenge. Conoce al equipo, nuestro reto y apoya el proyecto." />
+<meta name="description" content="Orbital Kronnos: equipo de robótica de El Salvador rumbo a la STEAM Maker Challenge." />
 <link rel="icon" href="images/logo.png" />
-<link rel="preload" as="image" href="images/fondo.webp" type="image/webp" />
-<link rel="preload" as="image" href="images/reloj.webp" type="image/webp" />
+<link rel="preload" as="image" href="images/fondo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="orstyle.css" />
+<style>
+/* ── LOGIN LINK en nav ── */
+.nav-login {
+  font-family: "Orbitron","Cinzel",sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid rgba(226,191,110,0.4);
+  color: #E2BF6E !important;
+  transition: all .3s;
+  margin-left: 8px;
+}
+.nav-login:hover {
+  background: linear-gradient(180deg,#E2BF6E,#B07D3B);
+  color: #0a0807 !important;
+  border-color: #E2BF6E;
+  transform: none;
+}
+.nav-login::after { display: none !important; }
+</style>
 </head>
 <body>
 
@@ -26,6 +47,7 @@
       <a href="#competencias">Competencias</a>
       <a href="#donaciones">Donaciones</a>
       <a href="#redes">Redes</a>
+      <a href="login.html" class="nav-login">Login ›</a>
     </nav>
   </div>
 </header>
