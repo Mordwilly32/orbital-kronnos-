@@ -11,28 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="orstyle.css" />
-<style>
-/* ── LOGIN LINK en nav ── */
-.nav-login {
-  font-family: "Orbitron","Cinzel",sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  padding: 8px 20px;
-  border: 1px solid rgba(226,191,110,0.4);
-  color: #E2BF6E !important;
-  transition: all .3s;
-  margin-left: 8px;
-}
-.nav-login:hover {
-  background: linear-gradient(180deg,#E2BF6E,#B07D3B);
-  color: #0a0807 !important;
-  border-color: #E2BF6E;
-  transform: none;
-}
-.nav-login::after { display: none !important; }
-</style>
 </head>
 <body>
 
@@ -47,10 +25,32 @@
       <a href="#competencias">Competencias</a>
       <a href="#donaciones">Donaciones</a>
       <a href="#redes">Redes</a>
-      <a href="login.html" class="nav-login">Login ›</a>
+      <a href="/login/" class="nav-login">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Acceso
+      </a>
     </nav>
+    <!-- HAMBURGER -->
+    <button class="n0068" id="burgerBtn" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="n0069" id="mobileNav" aria-hidden="true">
+  <div class="n0069-inner">
+    <a href="#top"        onclick="closeMobileNav()">Inicio</a>
+    <a href="#equipo"     onclick="closeMobileNav()">Equipo</a>
+    <a href="#competencias" onclick="closeMobileNav()">Competencias</a>
+    <a href="#donaciones" onclick="closeMobileNav()">Donaciones</a>
+    <a href="#redes"      onclick="closeMobileNav()">Redes</a>
+    <a href="/login/" class="nav-login-mob" onclick="closeMobileNav()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Acceso al equipo
+    </a>
+  </div>
+</div>
 
 <main id="top">
 
