@@ -1,291 +1,436 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Orbital Kronnos — Equipo de Robótica</title>
-<meta name="description" content="Orbital Kronnos: equipo de robótica de El Salvador rumbo a la STEAM Maker Challenge." />
-<link rel="icon" href="images/logo.png" />
-<link rel="preload" as="image" href="images/fondo.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="orstyle.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoboRobin STEAM Maker – FUSALMO</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Nueva Paleta de Colores: Rojo, Rojo Pastel y Blanco */
+    --red-main: #D32F2F;       /* Rojo principal */
+    --red-hover: #B71C1C;      /* Rojo oscuro para hovers */
+    --red-pastel: #FFEBEE;     /* Rojo pastel muy suave para fondos */
+    --red-border: #FFCDD2;     /* Rojo pastel para bordes */
+    --white: #ffffff;
+    --surface: #FAFAFA;        /* Fondo gris extra claro para que el blanco resalte */
+    --text: #2C2C2C;
+    --text-muted: #757575;
+    --border: #E0E0E0;
+    
+    --radius: 18px;            /* Bordes más redondeados para un estilo limpio */
+    --radius-sm: 10px;
+    --shadow: 0 4px 20px rgba(211, 47, 47, 0.06); /* Sombra suave con tono rojizo */
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  /* ── HEADER LIMPIO ── */
+  .app-header {
+    width: 100%;
+    background: var(--white);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-bottom: 2px solid var(--red-pastel);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo-circle {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--red-pastel);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; 
+    border: 2px solid var(--red-border);
+    overflow: hidden; /* Para que la imagen no se salga del círculo */
+  }
+  .logo-circle img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .header-text h1 { color: var(--red-main); font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px;}
+  .header-text p { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+  .badges { margin-left: auto; display: flex; gap: 8px; }
+  .badge {
+    font-size: 11px; font-weight: 600; padding: 5px 10px;
+    border-radius: 20px; letter-spacing: 0.3px;
+  }
+  .badge-ftc { background: var(--red-pastel); color: var(--red-main); border: 1px solid var(--red-border); }
+  .badge-fgc { background: var(--red-main); color: var(--white); }
+
+  /* ── MAIN LAYOUT ── */
+  .app-body {
+    width: 100%; max-width: 850px;
+    display: flex; flex-direction: column;
+    height: calc(100vh - 78px);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+
+  /* ── MODE TABS ── */
+  .mode-tabs {
+    display: flex;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab {
+    flex: 1; min-width: 120px;
+    padding: 14px 8px;
+    font-size: 13px; font-weight: 600;
+    border: none; background: transparent;
+    cursor: pointer; color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .tab.active { color: var(--red-main); border-bottom-color: var(--red-main); background: var(--red-pastel); }
+  .tab:hover:not(.active) { background: var(--surface); color: var(--text); }
+
+  /* ── CHAT AREA ── */
+  .chat-area {
+    flex: 1; overflow-y: auto;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 18px;
+    background: var(--surface);
+  }
+  .msg { display: flex; gap: 12px; align-items: flex-end; animation: fadeIn 0.3s ease; }
+  .msg-bot { flex-direction: row; }
+  .msg-user { flex-direction: row-reverse; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+    background: var(--red-pastel);
+    border: 1px solid var(--red-border);
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-user { background: var(--red-main); color: white; border: none; font-size: 12px; font-weight: bold;}
+
+  .bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: 14.5px; line-height: 1.6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  }
+  .bubble-bot { background: var(--white); border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+  .bubble-user { background: var(--red-main); color: var(--white); border-bottom-right-radius: 4px; }
+
+  .bubble pre {
+    background: #1e1e1e; color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 13px; padding: 14px;
+    border-radius: 10px; margin: 12px 0;
+    overflow-x: auto; white-space: pre; line-height: 1.5;
+  }
+  .bubble code {
+    font-family: 'Courier New', monospace; font-size: 13px;
+    background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 6px;
+    color: var(--red-main);
+  }
+  .bubble-user code { background: rgba(255,255,255,0.2); color: white; }
+  .bubble strong { font-weight: 700; }
+  .bubble ul { padding-left: 20px; margin: 8px 0; }
+  .bubble li { margin-bottom: 6px; }
+
+  .typing-dots { display: flex; gap: 5px; align-items: center; padding: 6px 4px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--red-border);
+    animation: bounce 1.4s infinite ease-in-out both;
+  }
+  .dot:nth-child(1) { animation-delay: -0.32s; }
+  .dot:nth-child(2) { animation-delay: -0.16s; }
+  @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); background: var(--red-main); } }
+
+  /* ── QUICK BUTTONS ── */
+  .quick-section {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .qbtn {
+    font-size: 12px; padding: 6px 14px;
+    border-radius: 20px; font-weight: 500;
+    border: 1px solid var(--red-border);
+    background: var(--white); color: var(--red-main);
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .qbtn:hover { background: var(--red-pastel); border-color: var(--red-main); }
+
+  /* ── INPUT ROW ── */
+  .input-row {
+    display: flex; gap: 10px;
+    padding: 16px 20px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+  .input-row input {
+    flex: 1; font-size: 15px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text); outline: none;
+    transition: all 0.2s;
+  }
+  .input-row input:focus { border-color: var(--red-main); background: var(--white); box-shadow: 0 0 0 3px var(--red-pastel); }
+  .send-btn {
+    width: 46px; height: 46px;
+    border-radius: var(--radius-sm);
+    background: var(--red-main); border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
+  }
+  .send-btn:hover { background: var(--red-hover); transform: translateY(-1px); }
+  .send-btn:active { transform: translateY(1px); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .send-btn svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── SCORE CALCULATOR / FOOTER ── */
+  .calc-section {
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 12px 20px; font-size: 12px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .calc-btn {
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--white); color: var(--text-muted);
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .calc-btn:hover { background: var(--red-pastel); color: var(--red-main); border-color: var(--red-border); }
+
+  @media (max-width: 600px) {
+    .header-text p { display: none; }
+    .badge { font-size: 10px; padding: 4px 8px; }
+    .bubble { max-width: 85%; font-size: 14px; }
+  }
+</style>
 </head>
 <body>
 
-<header class="n0001">
-  <div class="n0002">
-    <a href="#top" class="n0003">
-      <span class="n0004">Orbital <em>Kronnos</em></span>
-    </a>
-    <nav class="n0005">
-      <a href="#top">Inicio</a>
-      <a href="#equipo">Equipo</a>
-      <a href="#competencias">Competencias</a>
-      <a href="#donaciones">Donaciones</a>
-      <a href="#redes">Redes</a>
-      <a href="login/" class="nav-login">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Acceso
-      </a>
-    </nav>
-    <button class="n0068" id="burgerBtn" aria-label="Menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<header class="app-header">
+  <div class="logo-circle">
+    <img src="images/robin.png" alt="RoboRobin Logo">
+  </div>
+  <div class="header-text">
+    <h1>RoboRobin – STEAM Maker FUSALMO</h1>
+    <p>Asistente de programación · Competición Nacional 2026</p>
+  </div>
+  <div class="badges">
+    <span class="badge badge-ftc">FTC</span>
+    <span class="badge badge-fgc">FGC</span>
   </div>
 </header>
 
-<div class="n0069" id="mobileNav" aria-hidden="true">
-  <div class="n0069-inner">
-    <a href="#top"        onclick="closeMobileNav()">Inicio</a>
-    <a href="#equipo"     onclick="closeMobileNav()">Equipo</a>
-    <a href="#competencias" onclick="closeMobileNav()">Competencias</a>
-    <a href="#donaciones" onclick="closeMobileNav()">Donaciones</a>
-    <a href="#redes"      onclick="closeMobileNav()">Redes</a>
-    <a href="login/" class="nav-login-mob" onclick="closeMobileNav()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Acceso al equipo
-    </a>
+<div class="app-body">
+  <div class="mode-tabs">
+    <button class="tab active" onclick="setMode('ftc')">🐦 FTC · DECODE</button>
+    <button class="tab" onclick="setMode('fgc')">🌍 FGC · Igniting Innovation</button>
+    <button class="tab" onclick="setMode('debug')">🔧 Debug & Errores</button>
+    <button class="tab" onclick="setMode('strategy')">🏆 Estrategia</button>
+  </div>
+
+  <div class="chat-area" id="chatArea"></div>
+
+  <div class="quick-section" id="quickBtns"></div>
+
+  <div class="input-row">
+    <input type="text" id="userInput" placeholder="Escribe tu pregunta a RoboRobin..." autocomplete="off" />
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Enviar">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+
+  <div class="calc-section">
+    <span>💡 Powered by Gemini (Google AI)</span>
+    <button class="calc-btn" onclick="clearChat()">Nueva conversación</button>
   </div>
 </div>
 
-<main id="top">
+<script>
+// Clave ofuscada localmente en Base64 para protección simple
+const _encK = "QUl6YVN5QU5McDJXSDVVczFuOG9Za0kxdEY2VUJ4RnJTM0FpM2VV";
+const getK = () => atob(_encK);
 
-  <section class="n0006">
-    <div class="n0007"></div>
-    <div class="n0008"></div>
+const SYSTEMS = {
+  ftc: `Eres RoboRobin, experto en programación de robots FTC para estudiantes del programa STEAM Maker de FUSALMO en El Salvador. Responde siempre en español claro para jóvenes de 12-17 años. Desafío: FTC 2025-2026 DECODE.`,
+  fgc: `Eres RoboRobin, experto en programación de robots para el First Global Challenge 2026 "Igniting Innovation" para FUSALMO en El Salvador. Desafío: prevención de incendios forestales.`,
+  debug: `Eres RoboRobin, especialista en resolución de problemas técnicos y de código de robots para FUSALMO El Salvador.`,
+  strategy: `Eres RoboRobin, estratega experto para competiciones de robótica FTC y FGC para FUSALMO El Salvador.`
+};
 
-    <div class="n0009">
-      <div class="n0010 n0022">
-        <p class="n0011">— Equipo de Robótica · El Salvador —</p>
-        <h1>
-          <span class="n0012">ORBITAL</span>
-          <span class="n0013 n0014">KRONNOS</span>
-        </h1>
-        <div class="n0015">
-          <p><em>Con un margen de cuarenta y cuatro segundos, engranajes que giran moviendo mundos; sin tiempo para fallar, un robot por construir, una órbita que trazar y un destino por seguir.</em></p>
-        </div>
-        <a href="#equipo" class="n0016 n0017">Conocer el equipo ›</a>
-      </div>
+const QUICK = {
+  ftc: ["¿Cómo muevo el robot con gamepad?","Estructura TeleOp en Java","¿Cómo leer un sensor de color?","Encoders y RunToPosition"],
+  fgc: ["¿Cómo empiezo el código del robot?","Recoger y soltar WILDFIRE","¿Cómo funciona el CLIMB?","¿Qué hace el HUMAN PLAYER?"],
+  debug: ["Mi robot no se mueve","OpMode no aparece en Driver Hub","Error de compilación Java","Robot va al revés"],
+  strategy: ["¿Qué debo priorizar en FTC?","Cómo ganar RANKING POINTS","Estrategia de alianza FGC","Plan para el BRACE en FGC"]
+};
 
-      <div class="n0018 n0059">
-        <picture>
-          <source srcset="images/reloj.png" type="image/png" />
-          <img src="images/reloj.png" alt="Reloj Kronnos" loading="eager" fetchpriority="high" />
-        </picture>
-      </div>
-    </div>
+let currentMode = 'ftc';
+let conversationHistory = [];
+let isLoading = false;
 
-    <div class="n0019"></div>
-  </section>
+window.onload = function() {
+  setMode('ftc');
+};
 
-  <section id="competencias" class="n0020 n0021 n0022">
-    <p class="n0011 n0021-center">— Nuestra misión —</p>
-    <h2 class="n0023">STEAM Maker Challenge</h2>
-    <p class="n0024">El Salvador · Edición 2026</p>
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['ftc','fgc','debug','strategy'][i] === mode);
+  });
+  renderQuickBtns();
+  conversationHistory = [];
+  const chat = document.getElementById('chatArea');
+  chat.innerHTML = '';
+  
+  const WELCOMES = {
+    ftc: `¡Hola, futuro/a ingeniero/a! 🐦\n\nSoy RoboRobin, y estoy listo para ayudarte con el **FTC DECODE 2025-2026**. ¿Qué necesitas trabajar hoy? Puedo ayudarte con código Java, configuración de hardware o sensores.`,
+    fgc: `¡Bienvenido/a, representante de El Salvador! 🌍🐦\n\nEl **FGC 2026 - Igniting Innovation** nos espera. ¿Qué software o mecanismo de recolección quieres estructurar hoy?`,
+    debug: `¡Modo diagnóstico activado! 🔧🐦\n\nCuéntame el problema con el mayor detalle posible o compárteme el error de compilación para resolverlo juntos.`,
+    strategy: `¡Hora de pensar como campeones! 🏆🐦\n\nPuedo ayudarte a planificar la estrategia para maximizar puntos en la arena de competencia. ¿Por dónde empezamos?`
+  };
+  addBotMessage(WELCOMES[mode]);
+}
 
-    <div class="n0060">
-      <div>
-        <div class="n0022">
-          <p>
-            Somos participantes de la <strong>STEAM Maker Challenge (SMC)</strong>,
-            la competencia nacional de robótica de <strong>El Salvador</strong> que
-            reúne a equipos jóvenes para diseñar, construir y programar robots
-            capaces de resolver retos en arena bajo presión.
-          </p>
-        </div>
+function renderQuickBtns() {
+  const c = document.getElementById('quickBtns');
+  c.innerHTML = QUICK[currentMode].map(q =>
+    `<button class="qbtn" onclick="sendQuick('${q.replace(/'/g,"\\'")}')">💬 ${q}</button>`
+  ).join('');
+}
 
-        <div class="n0025">
-          <article class="n0026 n0022">
-            <div class="n0027">SÁB</div>
-            <div class="n0028">06</div>
-            <div class="n0029">Junio</div>
-            <div class="n0030">
-              <span class="n0031">Día 1 de competencia</span>
-              <span class="n0032">7:30 a.m. — 6:00 p.m.</span>
-            </div>
-          </article>
-          <article class="n0026 n0022">
-            <div class="n0027">DOM</div>
-            <div class="n0028">07</div>
-            <div class="n0029">Junio</div>
-            <div class="n0030">
-              <span class="n0031">Día 2 de competencia</span>
-              <span class="n0032">8:00 a.m. — 3:30 p.m.</span>
-            </div>
-          </article>
-        </div>
-      </div>
+function addBotMessage(text) {
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-bot';
+  // Usando la imagen solicitada para el avatar del chat
+  div.innerHTML = `
+    <div class="avatar"><img src="images/robin.png" alt="RR"></div>
+    <div class="bubble bubble-bot">${formatMsg(text)}</div>
+  `;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addUserMessage(text) {
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-user';
+  div.innerHTML = `<div class="avatar avatar-user">Tú</div><div class="bubble bubble-user">${escHtml(text)}</div>`;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-bot'; div.id = 'typing';
+  div.innerHTML = `
+    <div class="avatar"><img src="images/robin.png" alt="RR"></div>
+    <div class="bubble bubble-bot"><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+  `;
+  chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
+}
+
+function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+
+function formatMsg(text) {
+  return text
+    .replace(/```(\w*)\n?([\s\S]*?)```/g, (_, l, code) => `<pre>${escHtml(code.trim())}</pre>`)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function sendQuick(txt) {
+  document.getElementById('userInput').value = txt;
+  sendMessage();
+}
+
+function clearChat() {
+  setMode(currentMode);
+}
+
+async function sendMessage() {
+  if (isLoading) return;
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  
+  addUserMessage(text);
+  
+  // Guardar en el historial de Gemini
+  conversationHistory.push({ role: 'user', parts: [{ text: text }] });
+  
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+  showTyping();
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${getK()}`;
+    
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: conversationHistory,
+        systemInstruction: { parts: [{ text: SYSTEMS[currentMode] }] }
+      })
+    });
+
+    removeTyping();
+
+    if (response.status === 429) {
+      addBotMessage("⚠️ **Límite de cuota alcanzado:** Se han recibido demasiadas peticiones. Por favor, espera un minuto o revisa los límites en Google AI Studio.");
+      conversationHistory.pop();
+    } else if (!response.ok) {
+      const errData = await response.json();
+      addBotMessage(`❌ **Error de la API:** ${errData?.error?.message || 'Error desconocido'}`);
+      conversationHistory.pop();
+    } else {
+      const data = await response.json();
+      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No obtuve una respuesta clara.';
       
-      <div class="n0061">
-        <img src="images/mano.png" alt="Robot Mano" />
-      </div>
-    </div>
-  </section>
+      conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+      addBotMessage(reply);
+    }
+  } catch(e) {
+    removeTyping();
+    addBotMessage('❌ **Error de conexión:** No se pudo conectar con los servidores de Google AI. Revisa tu conexión a internet.');
+    conversationHistory.pop();
+  }
+  
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('userInput').focus();
+}
 
-  <section id="equipo" class="n0033">
-    <div class="n0021 n0034 n0022">
-      <p class="n0011 n0021-center">— Los relojeros —</p>
-      <h2 class="n0023">El Equipo</h2>
-      <p class="n0024">Seis piezas, un mismo engranaje.</p>
-    </div>
-
-    <div class="n0035">
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro4.png" type="image/png" />
-            <img src="images/miembro4.png" alt="Carlos Andre" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">01 — Capitán</span>
-          <h3>Carlos Andre</h3>
-          <span class="n0040">Capitán del equipo</span>
-          <p>Coordina la estrategia general y el diseño del sistema, asegurando que cada pieza del engranaje funcione sincronizada.</p>
-        </div>
-      </article>
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro2.png" type="image/png" />
-            <img src="images/miembro2.png" alt="Franklin Elías" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">02 — Mentor</span>
-          <h3>Franklin Elías</h3>
-          <span class="n0040">Mentor del equipo</span>
-          <p>La voz de la experiencia. Aporta conocimientos avanzados en ingeniería y robótica frente a los desafíos más complejos.</p>
-        </div>
-      </article>
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro3.png" type="image/png" />
-            <img src="images/miembro3.png" alt="Stephanie Orantes" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">03 — Coordinadora</span>
-          <h3>Stephanie Orantes</h3>
-          <span class="n0040">Coordinadora del equipo</span>
-          <p>Gestiona la logística, la documentación técnica y la comunicación dentro del taller. El puente entre las ideas y la ejecución real.</p>
-        </div>
-      </article>
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro1.png" type="image/png" />
-            <img src="images/miembro1.png" alt="David Alejandro" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">04 — Constructor</span>
-          <h3>David Alejandro</h3>
-          <span class="n0040">Constructor del equipo</span>
-          <p>Especialista en CAD y fabricación digital. Diseña y ensambla las estructuras robustas que dan forma y resistencia al robot.</p>
-        </div>
-      </article>
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro5.png" type="image/png" />
-            <img src="images/miembro5.png" alt="Cristopher" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">05 — Driver</span>
-          <h3>Cristopher</h3>
-          <span class="n0040">Driver del equipo</span>
-          <p>Reflejos rápidos y estrategia en tiempo real. Pilota el robot en la arena traduciendo la ingeniería en puntos cruciales.</p>
-        </div>
-      </article>
-
-      <article class="n0036 n0022">
-        <div class="n0037">
-          <picture>
-            <source srcset="images/miembro6.png" type="image/png" />
-            <img src="images/miembro6.png" alt="Jose Danelio" loading="lazy" />
-          </picture>
-        </div>
-        <div class="n0038">
-          <span class="n0039">06 — Programador</span>
-          <h3>Jose Danelio</h3>
-          <span class="n0040">Programador del equipo</span>
-          <p>El cerebro digital detrás de la máquina. Domina la lógica de control, los algoritmos autónomos y la integración Java/Python.</p>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section id="donaciones" class="n0041">
-    <div class="n0021">
-      <div class="n0022">
-        <p class="n0011 n0021-center n0014-text">— Apoya el proyecto —</p>
-        <h2 class="n0023 light">Haz que <span class="n0014">Kronnos</span> llegue más lejos</h2>
-        <p class="n0063">Gracias por donar 😄</p>
-      </div>
-
-      <div class="n0042 n0022">
-        <div class="n0043">
-          <span class="n0044">Meta de recaudación</span>
-          <span class="n0045"><strong>$400</strong> / $400 USD</span>
-        </div>
-        <div class="n0046">
-          <div class="n0047" style="--progress:100%"></div>
-        </div>
-        <div class="n0048">
-          <span>100.25% completado</span>
-          <span>¡Gracias por tu apoyo!🔥</span>
-        </div>
-      </div>
-
-      <div class="n0062 n0022">
-        <iframe src="https://forma.fusalmo.org/donations/dashboard" title="Panel de Donaciones" class="n0065"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <section id="redes" class="n0049 n0022">
-    <div class="n0021">
-      <p class="n0011 n0021-center">— Síguenos —</p>
-      <h2 class="n0023">Redes sociales</h2>
-      <div class="n0050">
-        <a href="https://www.instagram.com/smc_orbitalkronnos_2026/" target="_blank" rel="noopener" class="n0051">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-          <span>Instagram</span>
-        </a>
-        <a href="https://www.tiktok.com/@smc_orbitalkronnos?_r=1&_t=ZS-96Oh6WEyOqS" target="_blank" rel="noopener" class="n0051">
-          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.7 4.18 1.12 1.09 2.69 1.66 4.25 1.76v3.93c-1.78-.04-3.53-.55-5-1.5-.32-.2-.62-.43-.9-.68v6.71c.02 2.12-.58 4.28-1.92 5.96-1.72 2.15-4.51 3.28-7.23 2.91-2.91-.32-5.5-2.34-6.42-5.13-1.12-3.17.2-6.85 2.97-8.52 1.73-1.07 3.83-1.35 5.75-.78v4.03c-1.13-.53-2.5-.42-3.51.32-1.11.75-1.67 2.16-1.39 3.48.33 1.39 1.65 2.41 3.08 2.37 1.57.04 2.98-.98 3.37-2.5.07-.3.09-.61.09-.91V0l.02.02z"/></svg>
-          <span>TikTok</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="n0052">
-  <div class="n0021 n0053">
-    <div class="n0054">
-      <img src="images/logo.png" alt="Logo" loading="lazy" />
-      <div>
-        <strong>Orbital Kronnos</strong>
-        <p>Equipo de Robótica · STEAM Maker Challenge · El Salvador</p>
-      </div>
-    </div>
-    <p class="n0055">© 2026 Orbital Kronnos. Todos los derechos reservados.</p>
-  </div>
-</footer>
-
-<script src="orscript.js"></script>
+document.getElementById('userInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
 </body>
 </html>
