@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-<!-- reCAPTCHA v2 — reemplaza el sitekey con el tuyo de https://www.google.com/recaptcha/admin -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
 :root {
   --cream:  #F5EBD6;
@@ -174,18 +172,6 @@ footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px
         <span>Mantener sesión iniciada</span>
       </label>
 
-      <!-- reCAPTCHA v2
-           ⚠ IMPORTANTE: reemplaza el data-sitekey con el tuyo de
-           https://www.google.com/recaptcha/admin
-           La clave que ves aquí es la clave de prueba de Google
-           (siempre pasa en localhost / pruebas). -->
-      <div class="captcha-wrap">
-        <div class="g-recaptcha"
-             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-             data-theme="dark">
-        </div>
-      </div>
-
       <div class="err" id="errMsg"></div>
       <button class="btn" id="loginBtn" onclick="doLogin()">Entrar ›</button>
     </div>
@@ -313,7 +299,6 @@ async function doLogin() {
     errEl.textContent = '✕  Usuario o contraseña incorrectos';
     document.getElementById('pwd').value = '';
     document.getElementById('pwd').focus();
-    grecaptcha.reset();
     return;
   }
 
@@ -355,7 +340,6 @@ function doLogout() {
   document.getElementById('loginSection').style.display = 'flex';
   document.getElementById('usr').value  = '';
   document.getElementById('pwd').value  = '';
-  if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
   showLoginForm();
 }
 
