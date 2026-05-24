@@ -227,7 +227,7 @@
 
 <header class="app-header">
   <div class="logo-circle">
-    <img src="./images/robin.png" alt="RoboRobin Logo">
+    <img src="../images/robin.png" alt="RoboRobin Logo">
   </div>
   <div class="header-text">
     <h1>RoboRobin – STEAM Maker FUSALMO</h1>
@@ -265,6 +265,54 @@
 </div>
 
 <script>
+// ──── VALIDACIÓN DE SESIÓN ────
+const SESSION_KEY = 'ok_session_v3';
+const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
+const SIGN_KEY = 'OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper';
+
+const enc = new TextEncoder();
+
+async function hmacHex(msg) {
+  const key = await crypto.subtle.importKey('raw', enc.encode(SIGN_KEY), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(msg));
+  return Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function constEq(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let r = 0; for (let i=0;i<a.length;i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
+}
+
+async function validateSession() {
+  const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
+  if (!raw) return null;
+  try {
+    const { p, s } = JSON.parse(raw);
+    const expect = await hmacHex(p);
+    if (!constEq(expect, s)) { clearSessionData(); return null; }
+    const data = JSON.parse(p);
+    if (!data.u || Date.now() - data.ts > SESSION_TTL) { clearSessionData(); return null; }
+    return data;
+  } catch { clearSessionData(); return null; }
+}
+
+function clearSessionData() {
+  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
+}
+
+async function checkSessionAndLoad() {
+  const session = await validateSession();
+  if (!session) {
+    window.location.replace('../login/');
+    return;
+  }
+  initApp();
+}
+
+window.addEventListener('load', checkSessionAndLoad);
+
 // Clave ofuscada localmente
 const _encK = "QUl6YVN5QU5McDJXSDVVczFuOG9Za0kxdEY2VUJ4RnJTM0FpM2VV";
 const getK = () => atob(_encK);
@@ -287,9 +335,9 @@ let currentMode = 'ftc';
 let conversationHistory = [];
 let isLoading = false;
 
-window.onload = function() {
+function initApp() {
   setMode('ftc');
-};
+}
 
 function setMode(mode) {
   currentMode = mode;
@@ -321,9 +369,9 @@ function addBotMessage(text) {
   const chat = document.getElementById('chatArea');
   const div = document.createElement('div');
   div.className = 'msg msg-bot';
-  // Ruta actualizada con ./
+  // Ruta actualizada con ../
   div.innerHTML = `
-    <div class="avatar"><img src="./images/robin.png" alt="RR"></div>
+    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
     <div class="bubble bubble-bot">${formatMsg(text)}</div>
   `;
   chat.appendChild(div);
@@ -343,9 +391,9 @@ function showTyping() {
   const chat = document.getElementById('chatArea');
   const div = document.createElement('div');
   div.className = 'msg msg-bot'; div.id = 'typing';
-  // Ruta actualizada con ./
+  // Ruta actualizada con ../
   div.innerHTML = `
-    <div class="avatar"><img src="./images/robin.png" alt="RR"></div>
+    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
     <div class="bubble bubble-bot"><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
   `;
   chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
