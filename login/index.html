@@ -226,6 +226,7 @@ footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px
 <script>
 /* ── ACCOUNTS ── */
 const ACCOUNTS = [
+  { username:'willyberd', password:'chiala2coty0', role:'member', display:'willyberd' },
   { username:'Chigiri',   password:'C4m4r0n',      role:'member', display:'Chigiri'   },
   { username:'Rhis',      password:'Elp4pu19',      role:'member', display:'Rhis'      }
 ];
@@ -301,10 +302,9 @@ async function doLogin() {
   const rem = document.getElementById('rememberMe').checked;
   const errEl = document.getElementById('errMsg');
 
-  /* Verify reCAPTCHA */
-  const cap = grecaptcha.getResponse();
-  if (!cap) {
-    errEl.textContent = '✕  Por favor completa el captcha';
+  /* Check if fields are empty */
+  if (!u || !p) {
+    errEl.textContent = '✕  Por favor completa todos los campos';
     return;
   }
 
