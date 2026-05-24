@@ -345,7 +345,10 @@ function setMode(mode) {
     t.classList.toggle('active', ['ftc','fgc','debug','strategy'][i] === mode);
   });
   renderQuickBtns();
-  conversationHistory = [];
+  conversationHistory = [
+    { role: 'user', parts: [{ text: SYSTEMS[mode] }] },
+    { role: 'model', parts: [{ text: 'Entendido. Estoy listo para ayudarte.' }] }
+  ];
   const chat = document.getElementById('chatArea');
   chat.innerHTML = '';
   
@@ -443,8 +446,7 @@ async function sendMessage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: conversationHistory,
-        systemInstruction: { parts: [{ text: SYSTEMS[currentMode] }] }
+        contents: conversationHistory
       })
     });
 
