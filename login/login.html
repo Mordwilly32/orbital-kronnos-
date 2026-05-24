@@ -163,7 +163,7 @@ footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px
 
 <header class="hdr">
   <span class="hdr-logo">ORBITAL <em>KRONNOS</em></span>
-  <a href="/" class="hdr-back">← Volver al inicio</a>
+  <a href="../" class="hdr-back">← Volver al inicio</a>
 </header>
 
 <!-- ── LOGIN ── -->
@@ -228,33 +228,12 @@ footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px
 
     <div class="div-line"></div>
 
-    <!-- ADMIN: access log table -->
-    <div id="adminBlock" style="display:none;">
-      <p class="s-eyebrow">— Panel de administración —</p>
-      <h2 class="s-title">Registro de Accesos</h2>
-      <p class="s-sub">Historial de inicio de sesión de los miembros.</p>
-      <div class="tbl-wrap">
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Rol</th>
-              <th>Último acceso</th>
-              <th>Sesión guardada</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody id="logBody"></tbody>
-        </table>
-      </div>
-    </div>
-
     <!-- MEMBER: RoboCoach button -->
-    <div id="memberBlock" style="display:none;justify-content:center;">
+    <div id="memberBlock" style="display:flex;justify-content:center;">
       <div class="ia-card">
         <p class="s-eyebrow" style="margin-bottom:12px;">— Tu acceso —</p>
         <p>Tienes acceso al asistente <strong style="color:var(--gold);">RoboCoach</strong>.<br>Haz clic para abrir la IA.</p>
-        <a href="/roborobin/" class="btn-ia">🤖 Abrir RoboCoach ›</a>
+        <a href="../roborobin/" class="btn-ia">🤖 Abrir RoboCoach ›</a>
       </div>
     </div>
 
@@ -266,26 +245,15 @@ footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px
 <script>
 /* ── ACCOUNTS ── */
 const ACCOUNTS = [
-  { username:'willyberd', password:'chiala2coty0', role:'admin',  display:'willyberd' },
   { username:'Chigiri',   password:'C4m4r0n',      role:'member', display:'Chigiri'   },
   { username:'Rhis',      password:'Elp4pu19',      role:'member', display:'Rhis'      }
 ];
 
 /* ── STORAGE KEYS ── */
-const LOG_KEY     = 'ok_log';
 const SESSION_KEY = 'ok_session_v2';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 let activeUser = null;
-
-/* ── LOGIN LOG ── */
-function getLog()   { try{ return JSON.parse(localStorage.getItem(LOG_KEY)||'{}'); }catch{ return {}; } }
-function saveLog(l) { localStorage.setItem(LOG_KEY, JSON.stringify(l)); }
-function recordLogin(u) {
-  const l = getLog();
-  l[u] = new Date().toLocaleString('es-SV',{dateStyle:'short',timeStyle:'short'});
-  saveLog(l);
-}
 
 /* ── IP HELPER ── */
 async function getCurrentIP() {
@@ -327,7 +295,6 @@ async function checkAutoLogin() {
     const acc = ACCOUNTS.find(a => a.username === sess.username);
     if (acc) {
       activeUser = acc;
-      recordLogin(acc.username);
       showDash(acc);
       return;
     }
@@ -371,7 +338,6 @@ async function doLogin() {
 
   errEl.textContent = '';
   activeUser = acc;
-  recordLogin(acc.username);
 
   /* Save session by IP if "remember me" checked */
   if (rem) {
@@ -395,40 +361,9 @@ function showDash(acc) {
   dash.style.display = 'block';
 
   document.getElementById('dName').textContent = acc.display;
-  document.getElementById('dRole').textContent = acc.role === 'admin' ? '★ Administrador' : '◆ Miembro';
-  document.getElementById('dSub').textContent  = acc.role === 'admin' ? 'Control total del sistema' : 'Acceso a RoboCoach';
-
-  if (acc.role === 'admin') {
-    document.getElementById('adminBlock').style.display  = 'block';
-    document.getElementById('memberBlock').style.display = 'none';
-    renderLog();
-  } else {
-    document.getElementById('adminBlock').style.display  = 'none';
-    document.getElementById('memberBlock').style.display = 'flex';
-  }
-}
-
-function renderLog() {
-  const log   = getLog();
-  const tbody = document.getElementById('logBody');
-  tbody.innerHTML = '';
-
-  ACCOUNTS.forEach(acc => {
-    const isOnline    = activeUser && activeUser.username === acc.username;
-    const lastSeen    = log[acc.username] || null;
-    const sess        = getSavedSession();
-    const hasSavedSess = sess && sess.username === acc.username;
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="td-u">${acc.username}</td>
-      <td><span class="rbadge ${acc.role==='admin'?'r-adm':'r-mem'}">${acc.role==='admin'?'Admin':'Miembro'}</span></td>
-      <td>${lastSeen || '<em style="opacity:.4">Sin registro</em>'}</td>
-      <td><span class="dot ${hasSavedSess?'dot-on':'dot-off'}"></span>${hasSavedSess?'Guardada':'—'}</td>
-      <td><span class="dot ${isOnline?'dot-on':'dot-off'}"></span>${isOnline?'En línea':'Desconectado'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+  document.getElementById('dRole').textContent = '◆ Miembro';
+  document.getElementById('dSub').textContent  = 'Acceso a RoboCoach';
+  document.getElementById('memberBlock').style.display = 'flex';
 }
 
 function doLogout() {
