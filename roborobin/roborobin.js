@@ -123,8 +123,12 @@ let apiKey      = localStorage.getItem('robocoach_key') || '';
 
 /* ── INIT ── */
 window.addEventListener('load', () => {
+  const usr = getUserFromSession();
+  document.getElementById('hdrUser').textContent = usr;
   if (apiKey) {
-    document.getElementById('apiModal').style.display = 'none';
+    document.getElementById('apiModal').classList.add('hidden');
+  } else {
+    document.getElementById('apiModal').classList.remove('hidden');
   }
   setMode('ftc');
 });
@@ -138,13 +142,21 @@ function saveApiKey() {
   }
   apiKey = v;
   localStorage.setItem('robocoach_key', apiKey);
-  document.getElementById('apiModal').style.display = 'none';
+  document.getElementById('apiModal').classList.add('hidden');
   setMode('ftc');
+}
+
+function closeApiModal() {
+  if (apiKey) {
+    document.getElementById('apiModal').classList.add('hidden');
+  } else {
+    alert('Necesitas una API Key para continuar');
+  }
 }
 
 function changeKey() {
   document.getElementById('apiKeyInput').value = '';
-  document.getElementById('apiModal').style.display = 'flex';
+  document.getElementById('apiModal').classList.remove('hidden');
 }
 
 /* ── MODE ── */
@@ -284,9 +296,33 @@ async function sendMessage() {
   document.getElementById('userInput').focus();
 }
 
+/* ── LOGOUT ── */
+function doLogout() {
+  localStorage.removeItem('ok_session_v2');
+  window.location.href = '../login/';
+}
+
+/* ── GET USERNAME ── */
+function getUserFromSession() {
+  try {
+    const raw = localStorage.getItem('ok_session_v2');
+    if (raw) {
+      const sess = JSON.parse(raw);
+      return sess.username || 'Usuario';
+    }
+  } catch {}
+  return 'Usuario';
+}
+
 /* ── KEYBOARD ── */
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('userInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') sendMessage();
   });
+});
+
+/* ── SHOW USERNAME ── */
+document.addEventListener('load', () => {
+  const usr = getUserFromSession();
+  document.getElementById('hdrUser').textContent = usr;
 });
