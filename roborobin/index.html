@@ -440,7 +440,8 @@ async function sendMessage() {
   showTyping();
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${getK()}`;
+    // AHORA LLAMAMOS A TU PROPIO SERVIDOR LOCAL
+    const url = `http://localhost:3000/api/chat`;
     
     const response = await fetch(url, {
       method: 'POST',
@@ -453,7 +454,7 @@ async function sendMessage() {
     removeTyping();
 
     if (response.status === 429) {
-      addBotMessage("⚠️ **Límite de cuota alcanzado:** Se han recibido demasiadas peticiones. Por favor, espera un minuto o revisa los límites en Google AI Studio.");
+      addBotMessage("⚠️ **Límite de cuota alcanzado:** Se han recibido demasiadas peticiones. Por favor, espera un minuto o revisa los límites.");
       conversationHistory.pop();
     } else if (!response.ok) {
       const errData = await response.json();
@@ -468,7 +469,7 @@ async function sendMessage() {
     }
   } catch(e) {
     removeTyping();
-    addBotMessage('❌ **Error de conexión:** No se pudo conectar con los servidores de Google AI. Revisa tu conexión a internet.');
+    addBotMessage('❌ **Error de conexión:** No se pudo conectar con el servidor local. ¿Está encendido `server.js`?');
     conversationHistory.pop();
   }
   
