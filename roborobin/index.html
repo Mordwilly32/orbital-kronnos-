@@ -1,3 +1,4 @@
+ya llege al limite o algo porque no me responde?
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,263 +6,263 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RoboRobin STEAM Maker – FUSALMO</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    /* Paleta de Colores: Rojo, Rojo Pastel y Blanco */
-    --red-main: #D32F2F;       
-    --red-hover: #B71C1C;      
-    --red-pastel: #FFEBEE;     
-    --red-border: #FFCDD2;     
-    --white: #ffffff;
-    --surface: #FAFAFA;        
-    --text: #2C2C2C;
-    --text-muted: #757575;
-    --border: #E0E0E0;
-    
-    --radius: 18px;            
-    --radius-sm: 10px;
-    --shadow: 0 4px 20px rgba(211, 47, 47, 0.06); 
-  }
-  
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-    background: var(--surface);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Paleta de Colores: Rojo, Rojo Pastel y Blanco */
+    --red-main: #D32F2F;       
+    --red-hover: #B71C1C;      
+    --red-pastel: #FFEBEE;     
+    --red-border: #FFCDD2;     
+    --white: #ffffff;
+    --surface: #FAFAFA;        
+    --text: #2C2C2C;
+    --text-muted: #757575;
+    --border: #E0E0E0;
+    
+    --radius: 18px;            
+    --radius-sm: 10px;
+    --shadow: 0 4px 20px rgba(211, 47, 47, 0.06); 
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
 
-  /* ── HEADER LIMPIO ── */
-  .app-header {
-    width: 100%;
-    background: var(--white);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-bottom: 2px solid var(--red-pastel);
-    position: sticky; top: 0; z-index: 100;
-  }
-  .logo-circle {
-    width: 46px; height: 46px; border-radius: 50%;
-    background: var(--red-pastel);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; 
-    border: 2px solid var(--red-border);
-    overflow: hidden; 
-  }
-  .logo-circle img {
-    width: 100%; height: 100%; object-fit: cover;
-  }
-  .header-text h1 { color: var(--red-main); font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px;}
-  .header-text p { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
-  .badges { margin-left: auto; display: flex; gap: 8px; }
-  .badge {
-    font-size: 11px; font-weight: 600; padding: 5px 10px;
-    border-radius: 20px; letter-spacing: 0.3px;
-  }
-  .badge-ftc { background: var(--red-pastel); color: var(--red-main); border: 1px solid var(--red-border); }
-  .badge-fgc { background: var(--red-main); color: var(--white); }
+  /* ── HEADER LIMPIO ── */
+  .app-header {
+    width: 100%;
+    background: var(--white);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-bottom: 2px solid var(--red-pastel);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo-circle {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--red-pastel);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; 
+    border: 2px solid var(--red-border);
+    overflow: hidden; 
+  }
+  .logo-circle img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .header-text h1 { color: var(--red-main); font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px;}
+  .header-text p { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+  .badges { margin-left: auto; display: flex; gap: 8px; }
+  .badge {
+    font-size: 11px; font-weight: 600; padding: 5px 10px;
+    border-radius: 20px; letter-spacing: 0.3px;
+  }
+  .badge-ftc { background: var(--red-pastel); color: var(--red-main); border: 1px solid var(--red-border); }
+  .badge-fgc { background: var(--red-main); color: var(--white); }
 
-  /* ── MAIN LAYOUT ── */
-  .app-body {
-    width: 100%; max-width: 850px;
-    display: flex; flex-direction: column;
-    height: calc(100vh - 78px);
-    background: var(--white);
-    box-shadow: var(--shadow);
-  }
+  /* ── MAIN LAYOUT ── */
+  .app-body {
+    width: 100%; max-width: 850px;
+    display: flex; flex-direction: column;
+    height: calc(100vh - 78px);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
 
-  /* ── MODE TABS ── */
-  .mode-tabs {
-    display: flex;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-  }
-  .tab {
-    flex: 1; min-width: 120px;
-    padding: 14px 8px;
-    font-size: 13px; font-weight: 600;
-    border: none; background: transparent;
-    cursor: pointer; color: var(--text-muted);
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-  .tab.active { color: var(--red-main); border-bottom-color: var(--red-main); background: var(--red-pastel); }
-  .tab:hover:not(.active) { background: var(--surface); color: var(--text); }
+  /* ── MODE TABS ── */
+  .mode-tabs {
+    display: flex;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab {
+    flex: 1; min-width: 120px;
+    padding: 14px 8px;
+    font-size: 13px; font-weight: 600;
+    border: none; background: transparent;
+    cursor: pointer; color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .tab.active { color: var(--red-main); border-bottom-color: var(--red-main); background: var(--red-pastel); }
+  .tab:hover:not(.active) { background: var(--surface); color: var(--text); }
 
-  /* ── CHAT AREA ── */
-  .chat-area {
-    flex: 1; overflow-y: auto;
-    padding: 20px;
-    display: flex; flex-direction: column; gap: 18px;
-    background: var(--surface);
-  }
-  .msg { display: flex; gap: 12px; align-items: flex-end; animation: fadeIn 0.3s ease; }
-  .msg-bot { flex-direction: row; }
-  .msg-user { flex-direction: row-reverse; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+  /* ── CHAT AREA ── */
+  .chat-area {
+    flex: 1; overflow-y: auto;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 18px;
+    background: var(--surface);
+  }
+  .msg { display: flex; gap: 12px; align-items: flex-end; animation: fadeIn 0.3s ease; }
+  .msg-bot { flex-direction: row; }
+  .msg-user { flex-direction: row-reverse; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 
-  .avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; overflow: hidden;
-    background: var(--red-pastel);
-    border: 1px solid var(--red-border);
-  }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-user { background: var(--red-main); color: white; border: none; font-size: 12px; font-weight: bold;}
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+    background: var(--red-pastel);
+    border: 1px solid var(--red-border);
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-user { background: var(--red-main); color: white; border: none; font-size: 12px; font-weight: bold;}
 
-  .bubble {
-    max-width: 75%;
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    font-size: 14.5px; line-height: 1.6;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-  }
-  .bubble-bot { background: var(--white); border-bottom-left-radius: 4px; border: 1px solid var(--border); }
-  .bubble-user { background: var(--red-main); color: var(--white); border-bottom-right-radius: 4px; }
+  .bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: 14.5px; line-height: 1.6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  }
+  .bubble-bot { background: var(--white); border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+  .bubble-user { background: var(--red-main); color: var(--white); border-bottom-right-radius: 4px; }
 
-  .bubble pre {
-    background: #1e1e1e; color: #d4d4d4;
-    font-family: 'Courier New', monospace;
-    font-size: 13px; padding: 14px;
-    border-radius: 10px; margin: 12px 0;
-    overflow-x: auto; white-space: pre; line-height: 1.5;
-  }
-  .bubble code {
-    font-family: 'Courier New', monospace; font-size: 13px;
-    background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 6px;
-    color: var(--red-main);
-  }
-  .bubble-user code { background: rgba(255,255,255,0.2); color: white; }
-  .bubble strong { font-weight: 700; }
-  .bubble ul { padding-left: 20px; margin: 8px 0; }
-  .bubble li { margin-bottom: 6px; }
+  .bubble pre {
+    background: #1e1e1e; color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 13px; padding: 14px;
+    border-radius: 10px; margin: 12px 0;
+    overflow-x: auto; white-space: pre; line-height: 1.5;
+  }
+  .bubble code {
+    font-family: 'Courier New', monospace; font-size: 13px;
+    background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 6px;
+    color: var(--red-main);
+  }
+  .bubble-user code { background: rgba(255,255,255,0.2); color: white; }
+  .bubble strong { font-weight: 700; }
+  .bubble ul { padding-left: 20px; margin: 8px 0; }
+  .bubble li { margin-bottom: 6px; }
 
-  .typing-dots { display: flex; gap: 5px; align-items: center; padding: 6px 4px; }
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--red-border);
-    animation: bounce 1.4s infinite ease-in-out both;
-  }
-  .dot:nth-child(1) { animation-delay: -0.32s; }
-  .dot:nth-child(2) { animation-delay: -0.16s; }
-  @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); background: var(--red-main); } }
+  .typing-dots { display: flex; gap: 5px; align-items: center; padding: 6px 4px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--red-border);
+    animation: bounce 1.4s infinite ease-in-out both;
+  }
+  .dot:nth-child(1) { animation-delay: -0.32s; }
+  .dot:nth-child(2) { animation-delay: -0.16s; }
+  @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); background: var(--red-main); } }
 
-  /* ── QUICK BUTTONS ── */
-  .quick-section {
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    padding: 12px 20px;
-    display: flex; gap: 8px; flex-wrap: wrap;
-  }
-  .qbtn {
-    font-size: 12px; padding: 6px 14px;
-    border-radius: 20px; font-weight: 500;
-    border: 1px solid var(--red-border);
-    background: var(--white); color: var(--red-main);
-    cursor: pointer; transition: all 0.2s ease;
-  }
-  .qbtn:hover { background: var(--red-pastel); border-color: var(--red-main); }
+  /* ── QUICK BUTTONS ── */
+  .quick-section {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .qbtn {
+    font-size: 12px; padding: 6px 14px;
+    border-radius: 20px; font-weight: 500;
+    border: 1px solid var(--red-border);
+    background: var(--white); color: var(--red-main);
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .qbtn:hover { background: var(--red-pastel); border-color: var(--red-main); }
 
-  /* ── INPUT ROW ── */
-  .input-row {
-    display: flex; gap: 10px;
-    padding: 16px 20px;
-    background: var(--white);
-    border-top: 1px solid var(--border);
-  }
-  .input-row input {
-    flex: 1; font-size: 15px;
-    padding: 12px 16px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text); outline: none;
-    transition: all 0.2s;
-  }
-  .input-row input:focus { border-color: var(--red-main); background: var(--white); box-shadow: 0 0 0 3px var(--red-pastel); }
-  .send-btn {
-    width: 46px; height: 46px;
-    border-radius: var(--radius-sm);
-    background: var(--red-main); border: none;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
-  }
-  .send-btn:hover { background: var(--red-hover); transform: translateY(-1px); }
-  .send-btn:active { transform: translateY(1px); }
-  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .send-btn svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* ── INPUT ROW ── */
+  .input-row {
+    display: flex; gap: 10px;
+    padding: 16px 20px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+  .input-row input {
+    flex: 1; font-size: 15px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text); outline: none;
+    transition: all 0.2s;
+  }
+  .input-row input:focus { border-color: var(--red-main); background: var(--white); box-shadow: 0 0 0 3px var(--red-pastel); }
+  .send-btn {
+    width: 46px; height: 46px;
+    border-radius: var(--radius-sm);
+    background: var(--red-main); border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
+  }
+  .send-btn:hover { background: var(--red-hover); transform: translateY(-1px); }
+  .send-btn:active { transform: translateY(1px); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .send-btn svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* ── SCORE CALCULATOR / FOOTER ── */
-  .calc-section {
-    background: var(--surface); border-top: 1px solid var(--border);
-    padding: 12px 20px; font-size: 12px; color: var(--text-muted);
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  .calc-btn {
-    padding: 6px 14px; border-radius: 20px;
-    border: 1px solid var(--border);
-    background: var(--white); color: var(--text-muted);
-    font-size: 11px; font-weight: 600; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .calc-btn:hover { background: var(--red-pastel); color: var(--red-main); border-color: var(--red-border); }
+  /* ── SCORE CALCULATOR / FOOTER ── */
+  .calc-section {
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 12px 20px; font-size: 12px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .calc-btn {
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--white); color: var(--text-muted);
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .calc-btn:hover { background: var(--red-pastel); color: var(--red-main); border-color: var(--red-border); }
 
-  @media (max-width: 600px) {
-    .header-text p { display: none; }
-    .badge { font-size: 10px; padding: 4px 8px; }
-    .bubble { max-width: 85%; font-size: 14px; }
-  }
+  @media (max-width: 600px) {
+    .header-text p { display: none; }
+    .badge { font-size: 10px; padding: 4px 8px; }
+    .bubble { max-width: 85%; font-size: 14px; }
+  }
 </style>
 </head>
 <body>
 
 <header class="app-header">
-  <div class="logo-circle">
-    <img src="../images/robin.png" alt="RoboRobin Logo">
-  </div>
-  <div class="header-text">
-    <h1>RoboRobin – STEAM Maker FUSALMO</h1>
-    <p>Asistente de programación · Competición Nacional 2026</p>
-  </div>
-  <div class="badges">
-    <span class="badge badge-ftc">FTC</span>
-    <span class="badge badge-fgc">FGC</span>
-  </div>
+  <div class="logo-circle">
+    <img src="../images/robin.png" alt="RoboRobin Logo">
+  </div>
+  <div class="header-text">
+    <h1>RoboRobin – STEAM Maker FUSALMO</h1>
+    <p>Asistente de programación · Competición Nacional 2026</p>
+  </div>
+  <div class="badges">
+    <span class="badge badge-ftc">FTC</span>
+    <span class="badge badge-fgc">FGC</span>
+  </div>
 </header>
 
 <div class="app-body">
-  <div class="mode-tabs">
-    <button class="tab active" onclick="setMode('ftc')">🐦 FTC · DECODE</button>
-    <button class="tab" onclick="setMode('fgc')">🌍 FGC · Igniting Innovation</button>
-    <button class="tab" onclick="setMode('debug')">🔧 Debug & Errores</button>
-    <button class="tab" onclick="setMode('strategy')">🏆 Estrategia</button>
-  </div>
+  <div class="mode-tabs">
+    <button class="tab active" onclick="setMode('ftc')">🐦 FTC · DECODE</button>
+    <button class="tab" onclick="setMode('fgc')">🌍 FGC · Igniting Innovation</button>
+    <button class="tab" onclick="setMode('debug')">🔧 Debug & Errores</button>
+    <button class="tab" onclick="setMode('strategy')">🏆 Estrategia</button>
+  </div>
 
-  <div class="chat-area" id="chatArea"></div>
+  <div class="chat-area" id="chatArea"></div>
 
-  <div class="quick-section" id="quickBtns"></div>
+  <div class="quick-section" id="quickBtns"></div>
 
-  <div class="input-row">
-    <input type="text" id="userInput" placeholder="Escribe tu pregunta a RoboRobin..." autocomplete="off" />
-    <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Enviar">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
-  </div>
+  <div class="input-row">
+    <input type="text" id="userInput" placeholder="Escribe tu pregunta a RoboRobin..." autocomplete="off" />
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Enviar">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
 
-  <div class="calc-section">
-    <span>💡 Powered by Gemini (Google AI)</span>
-    <button class="calc-btn" onclick="clearChat()">Nueva conversación</button>
-  </div>
+  <div class="calc-section">
+    <span>💡 Powered by Gemini (Google AI)</span>
+    <button class="calc-btn" onclick="clearChat()">Nueva conversación</button>
+  </div>
 </div>
 
 <script>
@@ -273,62 +274,62 @@ const SIGN_KEY = 'OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper';
 const enc = new TextEncoder();
 
 async function hmacHex(msg) {
-  const key = await crypto.subtle.importKey('raw', enc.encode(SIGN_KEY), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
-  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(msg));
-  return Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const key = await crypto.subtle.importKey('raw', enc.encode(SIGN_KEY), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(msg));
+  return Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
 function constEq(a, b) {
-  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
-  let r = 0; for (let i=0;i<a.length;i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return r === 0;
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let r = 0; for (let i=0;i<a.length;i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
 }
 
 async function validateSession() {
-  const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
-  if (!raw) return null;
-  try {
-    const { p, s } = JSON.parse(raw);
-    const expect = await hmacHex(p);
-    if (!constEq(expect, s)) { clearSessionData(); return null; }
-    const data = JSON.parse(p);
-    if (!data.u || Date.now() - data.ts > SESSION_TTL) { clearSessionData(); return null; }
-    return data;
-  } catch { clearSessionData(); return null; }
+  const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
+  if (!raw) return null;
+  try {
+    const { p, s } = JSON.parse(raw);
+    const expect = await hmacHex(p);
+    if (!constEq(expect, s)) { clearSessionData(); return null; }
+    const data = JSON.parse(p);
+    if (!data.u || Date.now() - data.ts > SESSION_TTL) { clearSessionData(); return null; }
+    return data;
+  } catch { clearSessionData(); return null; }
 }
 
 function clearSessionData() {
-  sessionStorage.removeItem(SESSION_KEY);
-  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
 }
 
 async function checkSessionAndLoad() {
-  const session = await validateSession();
-  if (!session) {
-    window.location.replace('../login/');
-    return;
-  }
-  initApp();
+  const session = await validateSession();
+  if (!session) {
+    window.location.replace('../login/');
+    return;
+  }
+  initApp();
 }
 
 window.addEventListener('load', checkSessionAndLoad);
 
 // Clave ofuscada localmente
-const _encK = "QUl6YVN5QU5McDJXSDVVczFuOG9Za0kxdEY2VUJ4RnJTM0FpM2VV";
+const _encK = "QUl6YVN5RFlnQ1IxTmhqVHR6emhQNGtEZy13V0tmLTRCMk9Fc2l3";
 const getK = () => atob(_encK);
 
 const SYSTEMS = {
-  ftc: `Eres RoboRobin, experto en programación de robots FTC para estudiantes del programa STEAM Maker de FUSALMO en El Salvador. Responde siempre en español claro para jóvenes de 12-17 años. Desafío: FTC 2025-2026 DECODE.`,
-  fgc: `Eres RoboRobin, experto en programación de robots para el First Global Challenge 2026 "Igniting Innovation" para FUSALMO en El Salvador. Desafío: prevención de incendios forestales.`,
-  debug: `Eres RoboRobin, especialista en resolución de problemas técnicos y de código de robots para FUSALMO El Salvador.`,
-  strategy: `Eres RoboRobin, estratega experto para competiciones de robótica FTC y FGC para FUSALMO El Salvador.`
+  ftc: `Eres RoboRobin, experto en programación de robots FTC para estudiantes del programa STEAM Maker de FUSALMO en El Salvador. Responde siempre en español claro para jóvenes de 12-17 años. Desafío: FTC 2025-2026 DECODE.`,
+  fgc: `Eres RoboRobin, experto en programación de robots para el First Global Challenge 2026 "Igniting Innovation" para FUSALMO en El Salvador. Desafío: prevención de incendios forestales.`,
+  debug: `Eres RoboRobin, especialista en resolución de problemas técnicos y de código de robots para FUSALMO El Salvador.`,
+  strategy: `Eres RoboRobin, estratega experto para competiciones de robótica FTC y FGC para FUSALMO El Salvador.`
 };
 
 const QUICK = {
-  ftc: ["¿Cómo muevo el robot con gamepad?","Estructura TeleOp en Java","¿Cómo leer un sensor de color?","Encoders y RunToPosition"],
-  fgc: ["¿Cómo empiezo el código del robot?","Recoger y soltar WILDFIRE","¿Cómo funciona el CLIMB?","¿Qué hace el HUMAN PLAYER?"],
-  debug: ["Mi robot no se mueve","OpMode no aparece en Driver Hub","Error de compilación Java","Robot va al revés"],
-  strategy: ["¿Qué debo priorizar en FTC?","Cómo ganar RANKING POINTS","Estrategia de alianza FGC","Plan para el BRACE en FGC"]
+  ftc: ["¿Cómo muevo el robot con gamepad?","Estructura TeleOp en Java","¿Cómo leer un sensor de color?","Encoders y RunToPosition"],
+  fgc: ["¿Cómo empiezo el código del robot?","Recoger y soltar WILDFIRE","¿Cómo funciona el CLIMB?","¿Qué hace el HUMAN PLAYER?"],
+  debug: ["Mi robot no se mueve","OpMode no aparece en Driver Hub","Error de compilación Java","Robot va al revés"],
+  strategy: ["¿Qué debo priorizar en FTC?","Cómo ganar RANKING POINTS","Estrategia de alianza FGC","Plan para el BRACE en FGC"]
 };
 
 let currentMode = 'ftc';
@@ -336,150 +337,149 @@ let conversationHistory = [];
 let isLoading = false;
 
 function initApp() {
-  setMode('ftc');
+  setMode('ftc');
 }
 
 function setMode(mode) {
-  currentMode = mode;
-  document.querySelectorAll('.tab').forEach((t, i) => {
-    t.classList.toggle('active', ['ftc','fgc','debug','strategy'][i] === mode);
-  });
-  renderQuickBtns();
-  conversationHistory = [
-    { role: 'user', parts: [{ text: SYSTEMS[mode] }] },
-    { role: 'model', parts: [{ text: 'Entendido. Estoy listo para ayudarte.' }] }
-  ];
-  const chat = document.getElementById('chatArea');
-  chat.innerHTML = '';
-  
-  const WELCOMES = {
-    ftc: `¡Hola, futuro/a ingeniero/a! 🐦\n\nSoy RoboRobin, y estoy listo para ayudarte con el **FTC DECODE 2025-2026**. ¿Qué necesitas trabajar hoy? Puedo ayudarte con código Java, configuración de hardware o sensores.`,
-    fgc: `¡Bienvenido/a, representante de El Salvador! 🌍🐦\n\nEl **FGC 2026 - Igniting Innovation** nos espera. ¿Qué software o mecanismo de recolección quieres estructurar hoy?`,
-    debug: `¡Modo diagnóstico activado! 🔧🐦\n\nCuéntame el problema con el mayor detalle posible o compárteme el error de compilación para resolverlo juntos.`,
-    strategy: `¡Hora de pensar como campeones! 🏆🐦\n\nPuedo ayudarte a planificar la estrategia para maximizar puntos en la arena de competencia. ¿Por dónde empezamos?`
-  };
-  addBotMessage(WELCOMES[mode]);
+  currentMode = mode;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['ftc','fgc','debug','strategy'][i] === mode);
+  });
+  renderQuickBtns();
+  conversationHistory = [
+    { role: 'user', parts: [{ text: SYSTEMS[mode] }] },
+    { role: 'model', parts: [{ text: 'Entendido. Estoy listo para ayudarte.' }] }
+  ];
+  const chat = document.getElementById('chatArea');
+  chat.innerHTML = '';
+  
+  const WELCOMES = {
+    ftc: `¡Hola, futuro/a ingeniero/a! 🐦\n\nSoy RoboRobin, y estoy listo para ayudarte con el **FTC DECODE 2025-2026**. ¿Qué necesitas trabajar hoy? Puedo ayudarte con código Java, configuración de hardware o sensores.`,
+    fgc: `¡Bienvenido/a, representante de El Salvador! 🌍🐦\n\nEl **FGC 2026 - Igniting Innovation** nos espera. ¿Qué software o mecanismo de recolección quieres estructurar hoy?`,
+    debug: `¡Modo diagnóstico activado! 🔧🐦\n\nCuéntame el problema con el mayor detalle posible o compárteme el error de compilación para resolverlo juntos.`,
+    strategy: `¡Hora de pensar como campeones! 🏆🐦\n\nPuedo ayudarte a planificar la estrategia para maximizar puntos en la arena de competencia. ¿Por dónde empezamos?`
+  };
+  addBotMessage(WELCOMES[mode]);
 }
 
 function renderQuickBtns() {
-  const c = document.getElementById('quickBtns');
-  c.innerHTML = QUICK[currentMode].map(q =>
-    `<button class="qbtn" onclick="sendQuick('${q.replace(/'/g,"\\'")}')">💬 ${q}</button>`
-  ).join('');
+  const c = document.getElementById('quickBtns');
+  c.innerHTML = QUICK[currentMode].map(q =>
+    `<button class="qbtn" onclick="sendQuick('${q.replace(/'/g,"\\'")}')">💬 ${q}</button>`
+  ).join('');
 }
 
 function addBotMessage(text) {
-  const chat = document.getElementById('chatArea');
-  const div = document.createElement('div');
-  div.className = 'msg msg-bot';
-  // Ruta actualizada con ../
-  div.innerHTML = `
-    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
-    <div class="bubble bubble-bot">${formatMsg(text)}</div>
-  `;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-bot';
+  // Ruta actualizada con ../
+  div.innerHTML = `
+    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
+    <div class="bubble bubble-bot">${formatMsg(text)}</div>
+  `;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
 }
 
 function addUserMessage(text) {
-  const chat = document.getElementById('chatArea');
-  const div = document.createElement('div');
-  div.className = 'msg msg-user';
-  div.innerHTML = `<div class="avatar avatar-user">Tú</div><div class="bubble bubble-user">${escHtml(text)}</div>`;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-user';
+  div.innerHTML = `<div class="avatar avatar-user">Tú</div><div class="bubble bubble-user">${escHtml(text)}</div>`;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
 }
 
 function showTyping() {
-  const chat = document.getElementById('chatArea');
-  const div = document.createElement('div');
-  div.className = 'msg msg-bot'; div.id = 'typing';
-  // Ruta actualizada con ../
-  div.innerHTML = `
-    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
-    <div class="bubble bubble-bot"><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
-  `;
-  chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
+  const chat = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg msg-bot'; div.id = 'typing';
+  // Ruta actualizada con ../
+  div.innerHTML = `
+    <div class="avatar"><img src="../images/robin.png" alt="RR"></div>
+    <div class="bubble bubble-bot"><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+  `;
+  chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
 }
 
 function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
 
 function formatMsg(text) {
-  return text
-    .replace(/```(\w*)\n?([\s\S]*?)```/g, (_, l, code) => `<pre>${escHtml(code.trim())}</pre>`)
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br>');
+  return text
+    .replace(/```(\w*)\n?([\s\S]*?)```/g, (_, l, code) => `<pre>${escHtml(code.trim())}</pre>`)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
 }
 
 function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function sendQuick(txt) {
-  document.getElementById('userInput').value = txt;
-  sendMessage();
+  document.getElementById('userInput').value = txt;
+  sendMessage();
 }
 
 function clearChat() {
-  setMode(currentMode);
+  setMode(currentMode);
 }
 
 async function sendMessage() {
-  if (isLoading) return;
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text) return;
-  input.value = '';
-  
-  addUserMessage(text);
-  conversationHistory.push({ role: 'user', parts: [{ text: text }] });
-  
-  isLoading = true;
-  document.getElementById('sendBtn').disabled = true;
-  showTyping();
+  if (isLoading) return;
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  
+  addUserMessage(text);
+  conversationHistory.push({ role: 'user', parts: [{ text: text }] });
+  
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+  showTyping();
 
-  try {
-    // AHORA LLAMAMOS A TU PROPIO SERVIDOR LOCAL
-    const url = `http://localhost:3000/api/chat`;
-    
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: conversationHistory
-      })
-    });
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${getK()}`;
+    
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: conversationHistory
+      })
+    });
 
-    removeTyping();
+    removeTyping();
 
-    if (response.status === 429) {
-      addBotMessage("⚠️ **Límite de cuota alcanzado:** Se han recibido demasiadas peticiones. Por favor, espera un minuto o revisa los límites.");
-      conversationHistory.pop();
-    } else if (!response.ok) {
-      const errData = await response.json();
-      addBotMessage(`❌ **Error de la API:** ${errData?.error?.message || 'Error desconocido'}`);
-      conversationHistory.pop();
-    } else {
-      const data = await response.json();
-      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No obtuve una respuesta clara.';
-      
-      conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
-      addBotMessage(reply);
-    }
-  } catch(e) {
-    removeTyping();
-    addBotMessage('❌ **Error de conexión:** No se pudo conectar con el servidor local. ¿Está encendido `server.js`?');
-    conversationHistory.pop();
-  }
-  
-  isLoading = false;
-  document.getElementById('sendBtn').disabled = false;
-  document.getElementById('userInput').focus();
+    if (response.status === 429) {
+      addBotMessage("⚠️ **Límite de cuota alcanzado:** Se han recibido demasiadas peticiones. Por favor, espera un minuto o revisa los límites en Google AI Studio.");
+      conversationHistory.pop();
+    } else if (!response.ok) {
+      const errData = await response.json();
+      addBotMessage(`❌ **Error de la API:** ${errData?.error?.message || 'Error desconocido'}`);
+      conversationHistory.pop();
+    } else {
+      const data = await response.json();
+      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No obtuve una respuesta clara.';
+      
+      conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+      addBotMessage(reply);
+    }
+  } catch(e) {
+    removeTyping();
+    addBotMessage('❌ **Error de conexión:** No se pudo conectar con los servidores de Google AI. Revisa tu conexión a internet.');
+    conversationHistory.pop();
+  }
+  
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('userInput').focus();
 }
 
 document.getElementById('userInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') sendMessage();
+  if (e.key === 'Enter') sendMessage();
 });
 </script>
 </body>
