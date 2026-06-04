@@ -1,9 +1,0 @@
-# Variables de entorno — NUNCA subir a GitHub
-.env
-
-# Dependencias de Node — se reinstalan con npm install
-node_modules/
-
-# Archivos del sistema operativo
-.DS_Store
-Thumbs.db
