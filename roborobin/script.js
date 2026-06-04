@@ -55,7 +55,7 @@ window.addEventListener('load', checkSessionAndLoad);
 // ──────────────────────────────────────────────
 const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:3000/api/chat'
-  : 'https:orbital-kronnos.railway.internal'; // ← pega aquí tu URL de Railway
+  : 'https://orbital-kronnos.railway.internal'; // ← pega aquí tu URL de Railway
 
 // ──────────────────────────────────────────────
 //  MANUAL DECODE (extraído del PDF oficial)
