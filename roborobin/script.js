@@ -50,6 +50,14 @@ async function checkSessionAndLoad() {
 window.addEventListener('load', checkSessionAndLoad);
 
 // ──────────────────────────────────────────────
+//  URL DEL SERVIDOR EN RAILWAY
+//  ↓↓ CAMBIA ESTO por tu URL real de Railway ↓↓
+// ──────────────────────────────────────────────
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3000/api/chat'
+  : 'https:orbital-kronnos.railway.internal'; // ← pega aquí tu URL de Railway
+
+// ──────────────────────────────────────────────
 //  MANUAL DECODE (extraído del PDF oficial)
 // ──────────────────────────────────────────────
 const DECODE_MANUAL = `=== MANUAL FTC DECODE 2025-2026 (Resumen del Manual Oficial) ===
@@ -131,16 +139,16 @@ Advancement Points: rendimiento clasificatorio (2-16 pts) + selección de alianz
 //  SYSTEM PROMPTS POR MODO
 // ──────────────────────────────────────────────
 function buildSystem(mode) {
-  const base = `Eres RoboRobin, asistente experto en robótica del programa STEAM Maker de FUSALMO en El Salvador, para jóvenes de 12-17 años. Responde siempre en español claro y amigable. NO des código Java ni código de programación bajo ninguna circunstancia - si te lo piden, explica que no puedes ayudar con eso. Puedes responder sobre todo lo demás: mecánica, estrategia, reglas, hardware, sensores, conceptos, preguntas generales, etc.
+  const base = `Eres RoboRobin, asistente experto en robótica del programa STEAM Maker de FUSALMO en El Salvador, para jóvenes de 12-17 años. Responde siempre en español claro y amigable. NO des código Java ni código de programación bajo ninguna circunstancia - si te lo piden, explica amablemente que no puedes ayudar con eso. Puedes responder sobre todo lo demás: mecánica, estrategia, reglas, hardware, sensores, conceptos, preguntas generales, etc.
 
 Tienes acceso al Manual Oficial de Competición FTC DECODE 2025-2026. Cuando te hagan preguntas sobre el juego, reglas, puntuación, campo o construcción del robot, consulta esta información:
 
 ${DECODE_MANUAL}`;
 
   const extras = {
-    ftc: `\n\nModo actual: FTC DECODE 2025-2026. Ayuda con reglas del juego, estrategia, hardware, sensores y mecanismos para el desafío DECODE.`,
-    fgc: `\n\nModo actual: FGC 2026 "Igniting Innovation" - representando a El Salvador. El desafío trata sobre prevención de incendios forestales. Ayuda con estrategia, hardware y mecánica para ese desafío.`,
-    debug: `\n\nModo actual: Diagnóstico. Ayuda a resolver problemas técnicos de hardware, mecánica y funcionamiento del robot. Pide siempre el mayor detalle posible del problema.`,
+    ftc:      `\n\nModo actual: FTC DECODE 2025-2026. Ayuda con reglas del juego, estrategia, hardware, sensores y mecanismos para el desafío DECODE.`,
+    fgc:      `\n\nModo actual: FGC 2026 "Igniting Innovation" - representando a El Salvador. El desafío trata sobre prevención de incendios forestales. Ayuda con estrategia, hardware y mecánica para ese desafío.`,
+    debug:    `\n\nModo actual: Diagnóstico. Ayuda a resolver problemas técnicos de hardware, mecánica y funcionamiento del robot. Pide siempre el mayor detalle posible del problema.`,
     strategy: `\n\nModo actual: Estrategia. Ayuda a planificar puntuaciones, selección de alianzas, orden de tareas en AUTO y TELEOP, y cómo maximizar puntos y RANKING POINTS.`
   };
   return base + (extras[mode] || '');
@@ -173,26 +181,12 @@ function hideApiKeyModal() {
   document.getElementById('apiModal').style.display = 'none';
 }
 
-async function confirmApiKey() {
+function confirmApiKey() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key || !key.startsWith('sk-ant-')) {
     showApiError('La API key debe comenzar con sk-ant-');
     return;
   }
-  
-  const btn = document.getElementById('apiConfirmBtn');
-  btn.disabled = true;
-  btn.textContent = 'Verificando...';
-  
-  const ok = await verifyApiKey(key);
-  btn.disabled = false;
-  btn.textContent = 'Comenzar';
-  
-  if (!ok) {
-    showApiError('API key inválida o sin créditos. Verifica tu clave en console.anthropic.com');
-    return;
-  }
-  
   userApiKey = key;
   hideApiKeyModal();
   initApp();
@@ -202,27 +196,6 @@ function showApiError(msg) {
   const el = document.getElementById('apiError');
   el.textContent = msg;
   el.style.display = 'block';
-}
-
-async function verifyApiKey(key) {
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 5,
-        messages: [{ role: 'user', content: 'test' }]
-      })
-    });
-    return res.status !== 401 && res.status !== 403;
-  } catch {
-    return false;
-  }
 }
 
 document.getElementById('apiKeyInput').addEventListener('keydown', e => {
@@ -321,7 +294,7 @@ function sendQuick(txt) {
 }
 
 // ──────────────────────────────────────────────
-//  ENVÍO DE MENSAJE → CLAUDE HAIKU 4.5 (directo)
+//  ENVÍO DE MENSAJE → RAILWAY → CLAUDE HAIKU 4.5
 // ──────────────────────────────────────────────
 async function sendMessage() {
   if (isLoading) return;
@@ -338,26 +311,20 @@ async function sendMessage() {
   showTyping();
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': userApiKey,
-        'anthropic-version': '2023-06-01'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1024,
-        thinking: { type: 'disabled' },
-        system: buildSystem(currentMode),
-        messages: conversationHistory
+        system:   buildSystem(currentMode),
+        messages: conversationHistory,
+        apiKey:   userApiKey        // ← se envía al servidor Railway
       })
     });
 
     removeTyping();
 
     if (response.status === 401 || response.status === 403) {
-      addBotMessage('⚠️ **API key inválida o expirada.** Recarga la página para ingresar una nueva clave.');
+      addBotMessage('⚠️ **API key inválida o sin permisos.** Recarga la página e ingresa una clave válida desde console.anthropic.com');
       conversationHistory.pop();
     } else if (response.status === 429) {
       addBotMessage('⚠️ **Límite de cuota alcanzado.** Espera un momento y vuelve a intentarlo.');
@@ -365,7 +332,7 @@ async function sendMessage() {
     } else if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
       const msg = errData?.error?.message || `HTTP ${response.status}`;
-      addBotMessage(`❌ **Error de la API:** ${msg}`);
+      addBotMessage(`❌ **Error:** ${msg}`);
       conversationHistory.pop();
     } else {
       const data = await response.json();
@@ -375,7 +342,7 @@ async function sendMessage() {
     }
   } catch (e) {
     removeTyping();
-    addBotMessage('❌ **Error de conexión.** Verifica tu internet e intenta de nuevo.');
+    addBotMessage('❌ **Error de conexión con el servidor.** Verifica que Railway esté online e intenta de nuevo.');
     conversationHistory.pop();
   }
 
