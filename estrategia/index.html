@@ -1,67 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Orbital Kronnos — Estrategia</title>
-<link rel="icon" href="../images/logo.png" />
+<link rel="icon" href="../images/logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --cream:#F5EBD6;--cream2:#d8cdb3;--gold:#E2BF6E;--gold2:#C9A14A;--gold3:#B07D3B;
+  --gold:#E2BF6E;--gold3:#B07D3B;--cream:#F5EBD6;--cream2:#d8cdb3;
   --dark:#0a0807;--glow:rgba(226,191,110,0.22);
-  --fd:"Orbitron","Cinzel",sans-serif;--fb:"Cormorant Garamond",Georgia,serif;
+  --fd:"Orbitron",sans-serif;
+  --mob-bar:64px;
+  --mob-tools:58px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;overflow:hidden;}
-body{background:#111;color:var(--cream);font-family:var(--fb);display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:#111;}
+body{display:flex;flex-direction:column;font-family:var(--fd);-webkit-font-smoothing:antialiased;}
 
-.hdr{flex-shrink:0;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glow);background:rgba(10,8,7,.92);backdrop-filter:blur(12px);z-index:30;position:relative;}
-.hdr-logo{font-family:var(--fd);font-weight:900;font-size:14px;letter-spacing:4px;color:var(--gold);}
+/* ── HEADER ── */
+.hdr{flex-shrink:0;height:44px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--glow);background:rgba(10,8,7,.95);z-index:40;}
+.hdr-logo{font-weight:900;font-size:13px;letter-spacing:3px;color:var(--gold);}
 .hdr-logo em{font-style:normal;}
-.hdr-title{font-family:var(--fd);font-size:10px;letter-spacing:4px;color:var(--cream2);text-transform:uppercase;}
-.hdr-back{font-family:var(--fd);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--cream2);border:1px solid var(--glow);padding:6px 14px;transition:all .25s;text-decoration:none;white-space:nowrap;}
-.hdr-back:hover{color:var(--gold);border-color:var(--gold);}
+.hdr-title{font-size:9px;letter-spacing:4px;color:var(--cream2);text-transform:uppercase;}
+.hdr-back{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--cream2);
+  border:1px solid var(--glow);padding:6px 12px;text-decoration:none;transition:all .2s;}
+.hdr-back:hover,.hdr-back:active{color:var(--gold);border-color:var(--gold);}
 
-.toolbar{flex-shrink:0;display:flex;align-items:center;gap:4px;padding:6px 10px;background:rgba(14,11,10,.97);border-bottom:1px solid var(--glow);flex-wrap:wrap;z-index:20;position:relative;}
+/* ── DESKTOP TOOLBAR ── */
+.toolbar-desk{flex-shrink:0;display:flex;align-items:center;gap:4px;padding:6px 10px;
+  background:rgba(14,11,10,.97);border-bottom:1px solid var(--glow);flex-wrap:wrap;z-index:20;}
 .tg{display:flex;align-items:center;gap:3px;padding-right:8px;border-right:1px solid rgba(226,191,110,.15);}
 .tg:last-child{border-right:none;margin-left:auto;}
-.tb{background:rgba(255,255,255,.04);border:1px solid rgba(226,191,110,.15);color:var(--cream2);font-family:var(--fd);font-size:8px;letter-spacing:1.5px;padding:5px 8px;cursor:pointer;transition:all .18s;text-transform:uppercase;white-space:nowrap;line-height:1;}
+.tb{background:rgba(255,255,255,.04);border:1px solid rgba(226,191,110,.15);color:var(--cream2);
+  font-family:var(--fd);font-size:8px;letter-spacing:1.5px;padding:5px 8px;cursor:pointer;
+  transition:all .18s;text-transform:uppercase;white-space:nowrap;line-height:1;}
 .tb:hover{background:rgba(226,191,110,.1);border-color:var(--gold);color:var(--gold);}
 .tb.act{background:rgba(226,191,110,.2);border-color:var(--gold);color:var(--gold);}
-.swatch{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .15s,border-color .15s;flex-shrink:0;}
-.swatch:hover{transform:scale(1.2);}
-.swatch.act{border-color:var(--gold);transform:scale(1.2);}
-.szb{background:rgba(255,255,255,.04);border:1px solid rgba(226,191,110,.15);color:var(--cream2);width:26px;height:26px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;}
+.sw{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  transition:transform .15s,border-color .15s;flex-shrink:0;}
+.sw:hover{transform:scale(1.2);}
+.sw.act{border-color:var(--gold);transform:scale(1.2);}
+.szb{background:rgba(255,255,255,.04);border:1px solid rgba(226,191,110,.15);color:var(--cream2);
+  width:26px;height:26px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;}
 .szb:hover,.szb.act{background:rgba(226,191,110,.15);border-color:var(--gold);color:var(--gold);}
-.zoom-info{font-family:var(--fd);font-size:8px;letter-spacing:2px;color:var(--cream2);min-width:36px;text-align:center;}
+.zoom-info{font-size:8px;letter-spacing:2px;color:var(--cream2);min-width:36px;text-align:center;}
 
-.viewport{flex:1;position:relative;overflow:hidden;background:repeating-conic-gradient(#1a1a1a 0% 25%, #141414 0% 50%) 0 0 / 20px 20px;cursor:crosshair;}
-.viewport.panning{cursor:grab;}
-.viewport.panning-active{cursor:grabbing;}
-
+/* ── VIEWPORT ── */
+.viewport{flex:1;position:relative;overflow:hidden;
+  background:repeating-conic-gradient(#1a1a1a 0% 25%,#141414 0% 50%) 0 0/20px 20px;
+  cursor:crosshair;touch-action:none;}
+.viewport.mode-pan{cursor:grab;}
+.viewport.mode-pan-active{cursor:grabbing;}
 #worldContainer{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform;}
-#bgCanvas{position:absolute;top:0;left:0;display:block;}
-#drawCanvas{position:absolute;top:0;left:0;display:block;}
-#previewCanvas{position:absolute;top:0;left:0;display:block;pointer-events:none;}
+#bgCanvas,#drawCanvas,#previewCanvas{position:absolute;top:0;left:0;display:block;}
+#previewCanvas{pointer-events:none;}
 
-.sticker-panel{position:absolute;bottom:12px;right:12px;background:rgba(12,10,9,.95);border:1px solid var(--glow);padding:10px;display:none;flex-direction:column;gap:6px;z-index:25;backdrop-filter:blur(10px);}
-.sticker-panel.open{display:flex;}
-.sticker-panel h4{font-family:var(--fd);font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+/* ── STICKER PANEL ── */
+.sp{position:absolute;background:rgba(12,10,9,.97);border:1px solid var(--glow);
+  padding:10px;display:none;flex-direction:column;gap:6px;z-index:50;backdrop-filter:blur(10px);}
+.sp.open{display:flex;}
+.sp h4{font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
 .srow{display:flex;gap:5px;}
-.sopt{width:44px;height:44px;border:1px solid rgba(226,191,110,.18);background:rgba(255,255,255,.02);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;transition:all .18s;border-radius:3px;}
-.sopt:hover{border-color:var(--gold);background:rgba(226,191,110,.12);}
+.sopt{border:1px solid rgba(226,191,110,.2);background:rgba(255,255,255,.03);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;border-radius:3px;}
+.sopt:hover,.sopt:active{border-color:var(--gold);background:rgba(226,191,110,.15);}
 
-.mob-hint{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);font-family:var(--fd);font-size:8px;letter-spacing:2px;color:rgba(226,191,110,.35);text-transform:uppercase;white-space:nowrap;pointer-events:none;transition:opacity .5s;}
+/* ── MOBILE BOTTOM DOCK ── */
+.mob-dock{display:none;flex-direction:column;flex-shrink:0;
+  background:rgba(10,8,7,.97);border-top:1px solid var(--glow);z-index:30;}
 
-@media(max-width:600px){
-  .hdr-logo{font-size:12px;letter-spacing:2px;}
+/* row 1 – tools scrollable */
+.mob-tools-row{display:flex;overflow-x:auto;overflow-y:hidden;
+  gap:6px;padding:7px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;}
+.mob-tools-row::-webkit-scrollbar{display:none;}
+.mob-tools-row::after{content:'';flex-shrink:0;width:6px;}
+
+/* row 2 – colors + sizes + actions */
+.mob-bottom-row{display:flex;overflow-x:auto;overflow-y:hidden;
+  gap:6px;padding:6px 10px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;}
+.mob-bottom-row::-webkit-scrollbar{display:none;}
+.mob-bottom-row::after{content:'';flex-shrink:0;width:6px;}
+
+/* mobile tool buttons */
+.mtb{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;width:54px;height:46px;border:1.5px solid rgba(226,191,110,.18);
+  background:rgba(255,255,255,.04);color:var(--cream2);border-radius:8px;
+  font-family:var(--fd);font-size:6.5px;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;}
+.mtb .ico{font-size:20px;line-height:1;}
+.mtb:active,.mtb.act{background:rgba(226,191,110,.22);border-color:var(--gold);color:var(--gold);}
+
+/* mobile color swatches */
+.msw{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:transform .15s,border-color .15s;}
+.msw:active,.msw.act{border-color:var(--gold);transform:scale(1.15);}
+input[type=color].msw{padding:2px;}
+
+/* mobile size buttons */
+.mszb{flex-shrink:0;width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(226,191,110,.18);background:rgba(255,255,255,.04);
+  color:var(--cream2);border-radius:6px;cursor:pointer;transition:all .15s;}
+.mszb:active,.mszb.act{background:rgba(226,191,110,.2);border-color:var(--gold);color:var(--gold);}
+
+/* mobile divider */
+.mdiv{flex-shrink:0;width:1px;height:28px;background:rgba(226,191,110,.15);}
+
+/* mobile zoom label */
+.mzlabel{flex-shrink:0;font-size:9px;letter-spacing:1px;color:var(--cream2);min-width:32px;text-align:center;}
+
+/* mobile action buttons */
+.mab{flex-shrink:0;height:34px;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:4px;
+  border:1.5px solid rgba(226,191,110,.18);background:rgba(255,255,255,.04);
+  color:var(--cream2);font-family:var(--fd);font-size:8px;letter-spacing:1px;
+  text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.mab:active{background:rgba(226,191,110,.2);border-color:var(--gold);color:var(--gold);}
+
+/* mobile sticker panel – anchors to bottom dock */
+.sp-mob{bottom:auto;top:auto;left:10px;border-radius:6px;}
+
+/* ── RESPONSIVE ── */
+@media(pointer:coarse),(max-width:640px){
+  .toolbar-desk{display:none;}
+  .mob-dock{display:flex;}
   .hdr-title{display:none;}
-  .tg{gap:2px;padding-right:5px;}
-  .tb{padding:5px 6px;font-size:7px;}
-  .swatch{width:19px;height:19px;}
+  .hdr-logo{font-size:12px;}
+}
+@media(pointer:fine) and (min-width:641px){
+  .mob-dock{display:none;}
 }
 </style>
 </head>
@@ -73,7 +141,8 @@ body{background:#111;color:var(--cream);font-family:var(--fb);display:flex;flex-
   <a href="../menu/" class="hdr-back">← Menú</a>
 </header>
 
-<div class="toolbar" id="toolbar">
+<!-- DESKTOP TOOLBAR -->
+<div class="toolbar-desk" id="toolbarDesk">
   <div class="tg">
     <button class="tb act" id="toolPen"    onclick="setTool('pen')">✏️ Lápiz</button>
     <button class="tb"     id="toolLine"   onclick="setTool('line')">📏 Línea</button>
@@ -83,39 +152,30 @@ body{background:#111;color:var(--cream);font-family:var(--fb);display:flex;flex-
     <button class="tb"     id="toolErase"  onclick="setTool('erase')">🧹 Borrar</button>
     <button class="tb"     id="toolPan"    onclick="setTool('pan')">✋ Mover</button>
   </div>
-
   <div class="tg">
-    <div class="swatch act" style="background:#E2BF6E" onclick="setColor('#E2BF6E',this)"></div>
-    <div class="swatch"     style="background:#ffffff" onclick="setColor('#ffffff',this)"></div>
-    <div class="swatch"     style="background:#ef4444" onclick="setColor('#ef4444',this)"></div>
-    <div class="swatch"     style="background:#22c55e" onclick="setColor('#22c55e',this)"></div>
-    <div class="swatch"     style="background:#3b82f6" onclick="setColor('#3b82f6',this)"></div>
-    <div class="swatch"     style="background:#f97316" onclick="setColor('#f97316',this)"></div>
-    <div class="swatch"     style="background:#a855f7" onclick="setColor('#a855f7',this)"></div>
-    <div class="swatch"     style="background:#06b6d4" onclick="setColor('#06b6d4',this)"></div>
-    <div class="swatch"     style="background:#111111;border:1px solid #555" onclick="setColor('#111111',this)"></div>
-    <input type="color" id="customColor" value="#E2BF6E"
-      style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(226,191,110,.3);cursor:pointer;padding:1px;background:none;"
-      oninput="setColor(this.value,null)">
+    <div class="sw act" style="background:#E2BF6E" onclick="setColor('#E2BF6E',this,'d')"></div>
+    <div class="sw"     style="background:#fff"    onclick="setColor('#ffffff',this,'d')"></div>
+    <div class="sw"     style="background:#ef4444" onclick="setColor('#ef4444',this,'d')"></div>
+    <div class="sw"     style="background:#22c55e" onclick="setColor('#22c55e',this,'d')"></div>
+    <div class="sw"     style="background:#3b82f6" onclick="setColor('#3b82f6',this,'d')"></div>
+    <div class="sw"     style="background:#f97316" onclick="setColor('#f97316',this,'d')"></div>
+    <div class="sw"     style="background:#a855f7" onclick="setColor('#a855f7',this,'d')"></div>
+    <div class="sw"     style="background:#06b6d4" onclick="setColor('#06b6d4',this,'d')"></div>
+    <div class="sw"     style="background:#111;outline:1px solid #555;outline-offset:2px" onclick="setColor('#111111',this,'d')"></div>
+    <input type="color" class="sw" id="dCustom" value="#E2BF6E" style="border-radius:50%;padding:1px;cursor:pointer;background:none;" oninput="setColor(this.value,null,'d')">
   </div>
-
   <div class="tg">
-    <button class="szb act" id="s1" onclick="setSize(2,this)"><svg width="10" height="10"><circle cx="5" cy="5" r="1.5" fill="currentColor"/></svg></button>
-    <button class="szb"     id="s2" onclick="setSize(5,this)"><svg width="10" height="10"><circle cx="5" cy="5" r="3"   fill="currentColor"/></svg></button>
-    <button class="szb"     id="s3" onclick="setSize(10,this)"><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="currentColor"/></svg></button>
+    <button class="szb act" id="ds1" onclick="setSize(2,this,'d')"><svg width="10" height="10"><circle cx="5" cy="5" r="1.5" fill="currentColor"/></svg></button>
+    <button class="szb"     id="ds2" onclick="setSize(5,this,'d')"><svg width="10" height="10"><circle cx="5" cy="5" r="3"   fill="currentColor"/></svg></button>
+    <button class="szb"     id="ds3" onclick="setSize(10,this,'d')"><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="currentColor"/></svg></button>
   </div>
-
-  <div class="tg">
-    <button class="tb" onclick="toggleStickerPanel()">🤖 Sticker</button>
-  </div>
-
+  <div class="tg"><button class="tb" onclick="toggleSP('desk')">🤖 Sticker</button></div>
   <div class="tg">
     <button class="tb" onclick="zoomBy(1.25)">🔍+</button>
-    <span class="zoom-info" id="zoomInfo">100%</span>
+    <span class="zoom-info" id="zoomInfoD">100%</span>
     <button class="tb" onclick="zoomBy(0.8)">🔍−</button>
     <button class="tb" onclick="resetView()">⊡ Reset</button>
   </div>
-
   <div class="tg">
     <button class="tb" onclick="undoLast()">↩ Deshacer</button>
     <button class="tb" onclick="clearAll()">🗑 Limpiar</button>
@@ -123,6 +183,7 @@ body{background:#111;color:var(--cream);font-family:var(--fb);display:flex;flex-
   </div>
 </div>
 
+<!-- VIEWPORT -->
 <div class="viewport" id="viewport">
   <div id="worldContainer">
     <canvas id="bgCanvas"></canvas>
@@ -130,232 +191,258 @@ body{background:#111;color:var(--cream);font-family:var(--fb);display:flex;flex-
     <canvas id="previewCanvas"></canvas>
   </div>
 
-  <div class="sticker-panel" id="stickerPanel">
+  <!-- Desktop sticker panel -->
+  <div class="sp" id="spDesk" style="bottom:12px;right:12px;">
     <h4>Stickers</h4>
     <div class="srow">
-      <div class="sopt" onclick="pickSticker('robot')">🤖</div>
-      <div class="sopt" onclick="pickSticker('star')">⭐</div>
-      <div class="sopt" onclick="pickSticker('target')">🎯</div>
-      <div class="sopt" onclick="pickSticker('flag')">🚩</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('robot')">🤖</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('star')">⭐</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('target')">🎯</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('flag')">🚩</div>
     </div>
     <div class="srow">
-      <div class="sopt" onclick="pickSticker('gear')">⚙️</div>
-      <div class="sopt" onclick="pickSticker('lightning')">⚡</div>
-      <div class="sopt" onclick="pickSticker('block')">🛑</div>
-      <div class="sopt" onclick="pickSticker('ball')">🟣</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('gear')">⚙️</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('lightning')">⚡</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('block')">🛑</div>
+      <div class="sopt" style="width:44px;height:44px;font-size:24px;" onclick="pickSticker('ball')">🟣</div>
     </div>
   </div>
 
-  <div class="mob-hint" id="mobHint">2 dedos = mover/zoom · 1 dedo = dibujar</div>
+  <!-- Mobile sticker panel (floats above dock) -->
+  <div class="sp sp-mob" id="spMob" style="bottom:0;left:0;right:0;border-radius:12px 12px 0 0;padding:14px 16px;">
+    <h4 style="font-size:9px;margin-bottom:4px;">Stickers</h4>
+    <div class="srow" style="gap:8px;flex-wrap:wrap;">
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('robot')">🤖</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('star')">⭐</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('target')">🎯</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('flag')">🚩</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('gear')">⚙️</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('lightning')">⚡</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('block')">🛑</div>
+      <div class="sopt" style="width:52px;height:52px;font-size:28px;" onclick="pickSticker('ball')">🟣</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM DOCK -->
+<div class="mob-dock" id="mobDock">
+  <!-- Row 1: tool buttons -->
+  <div class="mob-tools-row">
+    <button class="mtb act" id="mtoolPen"    onclick="setTool('pen')">   <span class="ico">✏️</span>Lápiz</button>
+    <button class="mtb"     id="mtoolLine"   onclick="setTool('line')">  <span class="ico">📏</span>Línea</button>
+    <button class="mtb"     id="mtoolRect"   onclick="setTool('rect')">  <span class="ico">▭</span>Rect</button>
+    <button class="mtb"     id="mtoolCircle" onclick="setTool('circle')"><span class="ico">○</span>Círculo</button>
+    <button class="mtb"     id="mtoolArrow"  onclick="setTool('arrow')"> <span class="ico">➤</span>Flecha</button>
+    <button class="mtb"     id="mtoolErase"  onclick="setTool('erase')"> <span class="ico">🧹</span>Borrar</button>
+    <button class="mtb"     id="mtoolPan"    onclick="setTool('pan')">   <span class="ico">✋</span>Mover</button>
+    <button class="mtb"     onclick="toggleSP('mob')">                   <span class="ico">🤖</span>Sticker</button>
+  </div>
+  <!-- Row 2: colors + sizes + zoom + actions -->
+  <div class="mob-bottom-row">
+    <div class="msw act" style="background:#E2BF6E" onclick="setColor('#E2BF6E',this,'m')"></div>
+    <div class="msw"     style="background:#fff"    onclick="setColor('#ffffff',this,'m')"></div>
+    <div class="msw"     style="background:#ef4444" onclick="setColor('#ef4444',this,'m')"></div>
+    <div class="msw"     style="background:#22c55e" onclick="setColor('#22c55e',this,'m')"></div>
+    <div class="msw"     style="background:#3b82f6" onclick="setColor('#3b82f6',this,'m')"></div>
+    <div class="msw"     style="background:#f97316" onclick="setColor('#f97316',this,'m')"></div>
+    <div class="msw"     style="background:#a855f7" onclick="setColor('#a855f7',this,'m')"></div>
+    <div class="msw"     style="background:#06b6d4" onclick="setColor('#06b6d4',this,'m')"></div>
+    <div class="msw"     style="background:#111;outline:2px solid #555;outline-offset:2px;" onclick="setColor('#111111',this,'m')"></div>
+    <input type="color" class="msw" id="mCustom" value="#E2BF6E" style="border-radius:50%;padding:2px;background:none;cursor:pointer;" oninput="setColor(this.value,null,'m')">
+
+    <div class="mdiv"></div>
+
+    <button class="mszb act" id="ms1" onclick="setSize(2,this,'m')"><svg width="14" height="14"><circle cx="7" cy="7" r="2"   fill="currentColor"/></svg></button>
+    <button class="mszb"     id="ms2" onclick="setSize(5,this,'m')"><svg width="14" height="14"><circle cx="7" cy="7" r="3.5" fill="currentColor"/></svg></button>
+    <button class="mszb"     id="ms3" onclick="setSize(10,this,'m')"><svg width="14" height="14"><circle cx="7" cy="7" r="6"   fill="currentColor"/></svg></button>
+
+    <div class="mdiv"></div>
+
+    <button class="mab" onclick="zoomBy(1.3)">🔍+</button>
+    <span class="mzlabel" id="zoomInfoM">100%</span>
+    <button class="mab" onclick="zoomBy(0.77)">🔍−</button>
+    <button class="mab" onclick="resetView()">⊡</button>
+
+    <div class="mdiv"></div>
+
+    <button class="mab" onclick="undoLast()">↩</button>
+    <button class="mab" onclick="clearAll()">🗑</button>
+    <button class="mab" onclick="saveImage()">💾</button>
+  </div>
 </div>
 
 <script>
-const SESSION_KEY='ok_session_v3',SESSION_TTL=7*24*60*60*1000,SIGN_KEY='OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper',enc2=new TextEncoder();
-async function hmacHex(m){const k=await crypto.subtle.importKey('raw',enc2.encode(SIGN_KEY),{name:'HMAC',hash:'SHA-256'},false,['sign']);const s=await crypto.subtle.sign('HMAC',k,enc2.encode(m));return Array.from(new Uint8Array(s)).map(b=>b.toString(16).padStart(2,'0')).join('');}
-function constEq(a,b){if(typeof a!=='string'||typeof b!=='string'||a.length!==b.length)return false;let r=0;for(let i=0;i<a.length;i++)r|=a.charCodeAt(i)^b.charCodeAt(i);return r===0;}
-async function validateSession(){const raw=sessionStorage.getItem(SESSION_KEY)||localStorage.getItem(SESSION_KEY);if(!raw)return null;try{const{p,s}=JSON.parse(raw);const ex=await hmacHex(p);if(!constEq(ex,s))return null;const d=JSON.parse(p);if(!d.u||Date.now()-d.ts>SESSION_TTL)return null;return d;}catch{return null;}}
-window.addEventListener('load',async()=>{const s=await validateSession();if(!s){window.location.replace('../login/');return;}init();});
+/* ── SESSION ── */
+const SK='ok_session_v3',STL=7*24*60*60*1000,SGK='OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper',te=new TextEncoder();
+async function hh(m){const k=await crypto.subtle.importKey('raw',te.encode(SGK),{name:'HMAC',hash:'SHA-256'},false,['sign']);const s=await crypto.subtle.sign('HMAC',k,te.encode(m));return Array.from(new Uint8Array(s)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+function ceq(a,b){if(typeof a!='string'||typeof b!='string'||a.length!=b.length)return false;let r=0;for(let i=0;i<a.length;i++)r|=a.charCodeAt(i)^b.charCodeAt(i);return r===0;}
+async function vs(){const raw=sessionStorage.getItem(SK)||localStorage.getItem(SK);if(!raw)return null;try{const{p,s}=JSON.parse(raw);if(!ceq(await hh(p),s))return null;const d=JSON.parse(p);if(!d.u||Date.now()-d.ts>STL)return null;return d;}catch{return null;}}
+window.addEventListener('load',async()=>{if(!await vs()){window.location.replace('../login/');return;}init();});
 
+/* ── CANVAS SETUP ── */
 const vp   = document.getElementById('viewport');
 const world= document.getElementById('worldContainer');
 const bgC  = document.getElementById('bgCanvas');
 const drC  = document.getElementById('drawCanvas');
 const pvC  = document.getElementById('previewCanvas');
-let bgX, drX, pvX;
-
-let CW=1920, CH=1080;
-let scale=1, panX=0, panY=0;
-let tool='pen', color='#E2BF6E', size=2, stickerMode=null;
-let drawing=false, startCX=0, startCY=0;
-let history=[];
-let bgImage=null;
-
-let isPanning=false, panStartX=0, panStartY=0, panStartPanX=0, panStartPanY=0;
-let spaceDown=false;
-
-let pinching=false, pinchDist0=0, pinchScale0=1, pinchPanX0=0, pinchPanY0=0, pinchMidX=0, pinchMidY=0;
+let bgX,drX,pvX,CW=1920,CH=1080,scale=1,panX=0,panY=0;
+let tool='pen',color='#E2BF6E',size=2,stickerMode=null;
+let drawing=false,startCX=0,startCY=0,history=[];
 
 function init(){
   const img=new Image();
-  img.onload=()=>{
-    CW=img.naturalWidth; CH=img.naturalHeight;
-    bgImage=img;
-    setupCanvases();
-    fitToView();
-    renderBg();
-    bindEvents();
-    showMobHint();
-  };
-  img.onerror=()=>{
-    CW=1920; CH=1080;
-    setupCanvases();
-    fitToView();
-    renderBg();
-    bindEvents();
-    showMobHint();
-  };
+  img.onload=()=>{CW=img.naturalWidth;CH=img.naturalHeight;boot(img);};
+  img.onerror=()=>boot(null);
   img.src='../images/coso.png';
 }
-
-function setupCanvases(){
+function boot(img){
   [bgC,drC,pvC].forEach(c=>{c.width=CW;c.height=CH;});
-  bgX=bgC.getContext('2d');
-  drX=drC.getContext('2d');
-  pvX=pvC.getContext('2d');
+  bgX=bgC.getContext('2d');drX=drC.getContext('2d');pvX=pvC.getContext('2d');
+  if(img){bgX.drawImage(img,0,0,CW,CH);}
+  else{bgX.fillStyle='#0f0d0b';bgX.fillRect(0,0,CW,CH);bgX.strokeStyle='rgba(226,191,110,.07)';bgX.lineWidth=1;for(let x=0;x<CW;x+=40){bgX.beginPath();bgX.moveTo(x,0);bgX.lineTo(x,CH);bgX.stroke();}for(let y=0;y<CH;y+=40){bgX.beginPath();bgX.moveTo(0,y);bgX.lineTo(CW,y);bgX.stroke();}}
+  fitToView();
+  bindEvents();
 }
 
-function renderBg(){
-  bgX.clearRect(0,0,CW,CH);
-  if(bgImage){bgX.drawImage(bgImage,0,0,CW,CH);}
-  else{
-    bgX.fillStyle='#0f0d0b';bgX.fillRect(0,0,CW,CH);
-    bgX.strokeStyle='rgba(226,191,110,0.07)';bgX.lineWidth=1;
-    for(let x=0;x<CW;x+=40){bgX.beginPath();bgX.moveTo(x,0);bgX.lineTo(x,CH);bgX.stroke();}
-    for(let y=0;y<CH;y+=40){bgX.beginPath();bgX.moveTo(0,y);bgX.lineTo(CW,y);bgX.stroke();}
-  }
-}
-
-function applyTransform(){
+function applyT(){
   world.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`;
-  document.getElementById('zoomInfo').textContent=Math.round(scale*100)+'%';
+  const z=Math.round(scale*100)+'%';
+  document.getElementById('zoomInfoD').textContent=z;
+  document.getElementById('zoomInfoM').textContent=z;
 }
-
 function fitToView(){
-  const vw=vp.clientWidth, vh=vp.clientHeight;
-  const s=Math.min(vw/CW, vh/CH)*0.92;
-  scale=s;
-  panX=(vw-CW*s)/2;
-  panY=(vh-CH*s)/2;
-  applyTransform();
+  const vw=vp.clientWidth,vh=vp.clientHeight;
+  scale=Math.min(vw/CW,vh/CH)*0.92;
+  panX=(vw-CW*scale)/2; panY=(vh-CH*scale)/2;
+  applyT();
 }
-
 function resetView(){fitToView();}
-
-function zoomBy(factor, cx, cy){
-  const vw=vp.clientWidth, vh=vp.clientHeight;
-  if(cx===undefined) cx=vw/2;
-  if(cy===undefined) cy=vh/2;
-  const ns=Math.max(0.08, Math.min(8, scale*factor));
-  const ratio=ns/scale;
-  panX=cx-(cx-panX)*ratio;
-  panY=cy-(cy-panY)*ratio;
-  scale=ns;
-  applyTransform();
+function zoomBy(f,cx,cy){
+  if(cx===undefined){cx=vp.clientWidth/2;cy=vp.clientHeight/2;}
+  const ns=Math.max(0.06,Math.min(10,scale*f)),r=ns/scale;
+  panX=cx-(cx-panX)*r; panY=cy-(cy-panY)*r; scale=ns; applyT();
 }
+function vpToC(vx,vy){return{x:(vx-panX)/scale,y:(vy-panY)/scale};}
 
-function vpToCanvas(vx, vy){
-  return {x:(vx-panX)/scale, y:(vy-panY)/scale};
-}
+/* ── INPUT: pointer tracking map ── */
+const ptrs={};   // id -> PointerEvent (last known position)
+
+/* pan state */
+let isPanning=false,panPid=-1,panSvx=0,panSvy=0,panSpx=0,panSpy=0;
+/* pinch state */
+let isPinching=false,pinchIds=[],pinchDist0=1,pinchScale0=1,pinchPanX0=0,pinchPanY0=0,pinchMx=0,pinchMy=0;
+let spaceDown=false;
+
+function activePtrs(){return Object.values(ptrs);}
 
 function bindEvents(){
-  vp.addEventListener('wheel', onWheel, {passive:false});
-  vp.addEventListener('pointerdown', onPD);
-  vp.addEventListener('pointermove', onPM);
-  vp.addEventListener('pointerup',   onPU);
-  vp.addEventListener('pointercancel', onPU);
-  vp.addEventListener('contextmenu', e=>e.preventDefault());
-  document.addEventListener('keydown', e=>{
-    if(e.code==='Space'&&!e.target.matches('input,textarea')){e.preventDefault();spaceDown=true;vp.classList.add('panning');}
+  vp.addEventListener('wheel',onWheel,{passive:false});
+  vp.addEventListener('pointerdown',onPD,{passive:false});
+  vp.addEventListener('pointermove',onPM,{passive:false});
+  vp.addEventListener('pointerup',  onPU,{passive:false});
+  vp.addEventListener('pointercancel',onPU,{passive:false});
+  vp.addEventListener('contextmenu',e=>e.preventDefault());
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!e.target.matches('input,textarea')){e.preventDefault();spaceDown=true;if(!isPanning)vp.classList.add('mode-pan');}
     if((e.ctrlKey||e.metaKey)&&e.code==='KeyZ'){e.preventDefault();undoLast();}
   });
-  document.addEventListener('keyup', e=>{
-    if(e.code==='Space'){spaceDown=false;if(!isPanning)vp.classList.remove('panning');}
+  document.addEventListener('keyup',e=>{
+    if(e.code==='Space'){spaceDown=false;if(!isPanning&&tool!=='pan')vp.classList.remove('mode-pan');}
   });
-  window.addEventListener('resize', ()=>{if(!drawing)fitToView();});
 }
 
 function onWheel(e){
   e.preventDefault();
-  const rect=vp.getBoundingClientRect();
-  const cx=e.clientX-rect.left, cy=e.clientY-rect.top;
-  const factor=e.deltaY<0?1.12:1/1.12;
-  zoomBy(factor,cx,cy);
+  const r=vp.getBoundingClientRect();
+  zoomBy(e.deltaY<0?1.12:1/1.12,e.clientX-r.left,e.clientY-r.top);
 }
 
-const activePointers={};
+function rectPt(e){const r=vp.getBoundingClientRect();return{vx:e.clientX-r.left,vy:e.clientY-r.top};}
+
+function startPinch(){
+  isPinching=true; drawing=false;
+  pvX.clearRect(0,0,CW,CH);
+  const [a,b]=[ptrs[pinchIds[0]],ptrs[pinchIds[1]]];
+  const r=vp.getBoundingClientRect();
+  const ax=a.clientX-r.left,ay=a.clientY-r.top,bx=b.clientX-r.left,by=b.clientY-r.top;
+  pinchDist0=Math.max(1,Math.hypot(bx-ax,by-ay));
+  pinchScale0=scale; pinchPanX0=panX; pinchPanY0=panY;
+  pinchMx=(ax+bx)/2; pinchMy=(ay+by)/2;
+}
+
+function updatePinch(){
+  if(!ptrs[pinchIds[0]]||!ptrs[pinchIds[1]])return;
+  const [a,b]=[ptrs[pinchIds[0]],ptrs[pinchIds[1]]];
+  const r=vp.getBoundingClientRect();
+  const ax=a.clientX-r.left,ay=a.clientY-r.top,bx=b.clientX-r.left,by=b.clientY-r.top;
+  const dist=Math.max(1,Math.hypot(bx-ax,by-ay));
+  const mid={x:(ax+bx)/2,y:(ay+by)/2};
+  const ns=Math.max(0.06,Math.min(10,pinchScale0*(dist/pinchDist0)));
+  const ratio=ns/pinchScale0;
+  panX=pinchMx-(pinchMx-pinchPanX0)*ratio+(mid.x-pinchMx);
+  panY=pinchMy-(pinchMy-pinchPanY0)*ratio+(mid.y-pinchMy);
+  scale=ns; applyT();
+}
+
 function onPD(e){
   e.preventDefault();
-  activePointers[e.pointerId]=e;
+  ptrs[e.pointerId]=e;
   vp.setPointerCapture(e.pointerId);
-  const pts=Object.values(activePointers);
+  const pts=activePtrs();
 
-  if(pts.length===2){
+  /* two fingers → start pinch */
+  if(pts.length>=2){
+    if(isPanning){isPanning=false;panPid=-1;}
     drawing=false;
-    pvX.clearRect(0,0,CW,CH);
-    pinching=true;
-    isPanning=false;
-    const r=vp.getBoundingClientRect();
-    const ax=(pts[0].clientX-r.left), ay=(pts[0].clientY-r.top);
-    const bx=(pts[1].clientX-r.left), by=(pts[1].clientY-r.top);
-    pinchDist0=Math.hypot(bx-ax,by-ay);
-    pinchScale0=scale;
-    pinchMidX=(ax+bx)/2; pinchMidY=(ay+by)/2;
-    pinchPanX0=panX; pinchPanY0=panY;
-    return;
+    isPinching=true;
+    pinchIds=[pts[0].pointerId,pts[1].pointerId];
+    startPinch(); return;
   }
 
+  /* middle click or space or pan tool → pan */
   if(e.button===1||(e.button===0&&spaceDown)||tool==='pan'){
-    isPanning=true;
-    vp.classList.add('panning-active');
-    const r=vp.getBoundingClientRect();
-    panStartX=e.clientX-r.left; panStartY=e.clientY-r.top;
-    panStartPanX=panX; panStartPanY=panY;
+    isPanning=true; panPid=e.pointerId;
+    vp.classList.add('mode-pan-active');
+    const {vx,vy}=rectPt(e);
+    panSvx=vx;panSvy=vy;panSpx=panX;panSpy=panY;
     return;
   }
 
-  if(e.button!==0) return;
-  const r=vp.getBoundingClientRect();
-  const vx=e.clientX-r.left, vy=e.clientY-r.top;
-  const {x,y}=vpToCanvas(vx,vy);
+  if(e.button!==0)return;
+  const {vx,vy}=rectPt(e);
+  const {x,y}=vpToC(vx,vy);
 
   if(stickerMode){drawStickerAt(x,y);saveHistory();return;}
-
   drawing=true;
-  startCX=x; startCY=y;
+  startCX=x;startCY=y;
   if(tool==='pen'||tool==='erase'){drX.beginPath();drX.moveTo(x,y);}
 }
 
 function onPM(e){
   e.preventDefault();
-  activePointers[e.pointerId]=e;
-  const pts=Object.values(activePointers);
+  ptrs[e.pointerId]=e;
+  const pts=activePtrs();
 
-  if(pinching&&pts.length>=2){
-    const r=vp.getBoundingClientRect();
-    const ax=(pts[0].clientX-r.left), ay=(pts[0].clientY-r.top);
-    const bx=(pts[1].clientX-r.left), by=(pts[1].clientY-r.top);
-    const dist=Math.hypot(bx-ax,by-ay);
-    const mid={x:(ax+bx)/2,y:(ay+by)/2};
-    const sf=dist/pinchDist0;
-    const ns=Math.max(0.08,Math.min(8,pinchScale0*sf));
-    const ratio=ns/pinchScale0;
-    panX=pinchMidX-(pinchMidX-pinchPanX0)*ratio+(mid.x-pinchMidX);
-    panY=pinchMidY-(pinchMidY-pinchPanY0)*ratio+(mid.y-pinchMidY);
-    scale=ns;
-    applyTransform();
+  if(isPinching){
+    if(pts.length>=2)updatePinch();
     return;
   }
-
-  if(isPanning){
-    const r=vp.getBoundingClientRect();
-    const vx=e.clientX-r.left, vy=e.clientY-r.top;
-    panX=panStartPanX+(vx-panStartX);
-    panY=panStartPanY+(vy-panStartY);
-    applyTransform();
-    return;
+  if(isPanning&&e.pointerId===panPid){
+    const {vx,vy}=rectPt(e);
+    panX=panSpx+(vx-panSvx); panY=panSpy+(vy-panSvy);
+    applyT(); return;
   }
+  if(!drawing)return;
 
-  if(!drawing) return;
-  const r=vp.getBoundingClientRect();
-  const vx=e.clientX-r.left, vy=e.clientY-r.top;
-  const {x,y}=vpToCanvas(vx,vy);
+  const {vx,vy}=rectPt(e);
+  const {x,y}=vpToC(vx,vy);
 
   if(tool==='pen'||tool==='erase'){
     drX.lineWidth=tool==='erase'?size*6:size;
-    drX.lineCap='round'; drX.lineJoin='round';
+    drX.lineCap='round';drX.lineJoin='round';
     drX.strokeStyle=tool==='erase'?'rgba(0,0,0,1)':color;
     drX.globalCompositeOperation=tool==='erase'?'destination-out':'source-over';
-    drX.lineTo(x,y); drX.stroke();
+    drX.lineTo(x,y);drX.stroke();
   } else {
     pvX.clearRect(0,0,CW,CH);
     drawShape(pvX,tool,startCX,startCY,x,y,color,size);
@@ -364,23 +451,37 @@ function onPM(e){
 
 function onPU(e){
   e.preventDefault();
-  delete activePointers[e.pointerId];
-  const pts=Object.values(activePointers);
+  delete ptrs[e.pointerId];
+  const pts=activePtrs();
 
-  if(pinching&&pts.length<2){pinching=false;}
-
-  if(isPanning&&pts.length===0){
-    isPanning=false;
-    vp.classList.remove('panning-active');
-    if(!spaceDown)vp.classList.remove('panning');
+  if(isPinching){
+    if(pts.length<2){
+      isPinching=false;pinchIds=[];
+      /* if one finger remains, re-anchor pan from its current position */
+      if(pts.length===1&&tool==='pan'){
+        const rem=pts[0];isPanning=true;panPid=rem.pointerId;
+        const {vx,vy}=rectPt(rem);
+        panSvx=vx;panSvy=vy;panSpx=panX;panSpy=panY;
+      }
+    } else {
+      /* swap to the two remaining fingers */
+      pinchIds=[pts[0].pointerId,pts[1].pointerId];
+      startPinch();
+    }
     return;
   }
 
-  if(!drawing) return;
+  if(isPanning&&e.pointerId===panPid){
+    isPanning=false;panPid=-1;
+    vp.classList.remove('mode-pan-active');
+    if(!spaceDown&&tool!=='pan')vp.classList.remove('mode-pan');
+    return;
+  }
+
+  if(!drawing)return;
   drawing=false;
-  const r=vp.getBoundingClientRect();
-  const vx=e.clientX-r.left, vy=e.clientY-r.top;
-  const {x,y}=vpToCanvas(vx,vy);
+  const {vx,vy}=rectPt(e);
+  const {x,y}=vpToC(vx,vy);
 
   if(tool!=='pen'&&tool!=='erase'){
     pvX.clearRect(0,0,CW,CH);
@@ -392,107 +493,64 @@ function onPU(e){
 }
 
 function drawShape(ctx,t,x1,y1,x2,y2,col,w){
-  ctx.save();
-  ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=w;
-  ctx.lineCap='round'; ctx.lineJoin='round';
-  ctx.globalCompositeOperation='source-over';
+  ctx.save();ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=w;ctx.lineCap='round';ctx.lineJoin='round';ctx.globalCompositeOperation='source-over';
   if(t==='line'){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
   else if(t==='rect'){ctx.beginPath();ctx.rect(x1,y1,x2-x1,y2-y1);ctx.stroke();}
-  else if(t==='circle'){
-    const rx=Math.abs(x2-x1)/2,ry=Math.abs(y2-y1)/2,cx=(x1+x2)/2,cy=(y1+y2)/2;
-    ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();
-  } else if(t==='arrow'){
-    const dx=x2-x1,dy=y2-y1,angle=Math.atan2(dy,dx),hl=Math.max(14,w*5);
+  else if(t==='circle'){const rx=Math.abs(x2-x1)/2,ry=Math.abs(y2-y1)/2,cx=(x1+x2)/2,cy=(y1+y2)/2;ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();}
+  else if(t==='arrow'){
+    const dx=x2-x1,dy=y2-y1,ang=Math.atan2(dy,dx),hl=Math.max(14,w*5);
     ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x2,y2);
-    ctx.lineTo(x2-hl*Math.cos(angle-Math.PI/7),y2-hl*Math.sin(angle-Math.PI/7));
-    ctx.lineTo(x2-hl*Math.cos(angle+Math.PI/7),y2-hl*Math.sin(angle+Math.PI/7));
-    ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hl*Math.cos(ang-Math.PI/7),y2-hl*Math.sin(ang-Math.PI/7));ctx.lineTo(x2-hl*Math.cos(ang+Math.PI/7),y2-hl*Math.sin(ang+Math.PI/7));ctx.closePath();ctx.fill();
   }
   ctx.restore();
 }
 
 function drawStickerAt(x,y){
   const map={robot:'🤖',star:'⭐',target:'🎯',flag:'🚩',gear:'⚙️',lightning:'⚡',block:'🛑',ball:'🟣'};
-  const em=map[stickerMode]||'🤖';
-  drX.save();
-  drX.font='48px serif';
-  drX.textAlign='center';drX.textBaseline='middle';
-  drX.globalCompositeOperation='source-over';
-  drX.fillText(em,x,y);
-  drX.restore();
+  drX.save();drX.font='48px serif';drX.textAlign='center';drX.textBaseline='middle';drX.globalCompositeOperation='source-over';drX.fillText(map[stickerMode]||'🤖',x,y);drX.restore();
 }
 
-function saveHistory(){
-  history.push(drX.getImageData(0,0,CW,CH));
-  if(history.length>50)history.shift();
-}
-
-function undoLast(){
-  if(!history.length)return;
-  history.pop();
-  drX.clearRect(0,0,CW,CH);
-  if(history.length)drX.putImageData(history[history.length-1],0,0);
-}
-
-function clearAll(){
-  if(!confirm('¿Limpiar todo el dibujo?'))return;
-  history=[];
-  drX.clearRect(0,0,CW,CH);
-  pvX.clearRect(0,0,CW,CH);
-}
-
-function saveImage(){
-  const out=document.createElement('canvas');
-  out.width=CW;out.height=CH;
-  const ctx=out.getContext('2d');
-  ctx.drawImage(bgC,0,0);
-  ctx.drawImage(drC,0,0);
-  const a=document.createElement('a');
-  a.download='estrategia-ok.png';
-  a.href=out.toDataURL('image/png');
-  a.click();
-}
+function saveHistory(){history.push(drX.getImageData(0,0,CW,CH));if(history.length>50)history.shift();}
+function undoLast(){if(!history.length)return;history.pop();drX.clearRect(0,0,CW,CH);if(history.length)drX.putImageData(history[history.length-1],0,0);}
+function clearAll(){if(!confirm('¿Limpiar todo el dibujo?'))return;history=[];drX.clearRect(0,0,CW,CH);pvX.clearRect(0,0,CW,CH);}
+function saveImage(){const o=document.createElement('canvas');o.width=CW;o.height=CH;const c=o.getContext('2d');c.drawImage(bgC,0,0);c.drawImage(drC,0,0);const a=document.createElement('a');a.download='estrategia-ok.png';a.href=o.toDataURL('image/png');a.click();}
 
 function setTool(t){
-  tool=t; stickerMode=null;
+  tool=t;stickerMode=null;
+  /* desktop */
   document.querySelectorAll('.tb[id^="tool"]').forEach(b=>b.classList.remove('act'));
-  const el=document.getElementById('tool'+t.charAt(0).toUpperCase()+t.slice(1));
-  if(el)el.classList.add('act');
-  if(t==='pan'){vp.classList.add('panning');}
-  else{vp.classList.remove('panning');}
+  const de=document.getElementById('tool'+t.charAt(0).toUpperCase()+t.slice(1));if(de)de.classList.add('act');
+  /* mobile */
+  document.querySelectorAll('.mtb[id^="mtool"]').forEach(b=>b.classList.remove('act'));
+  const me=document.getElementById('mtool'+t.charAt(0).toUpperCase()+t.slice(1));if(me)me.classList.add('act');
+  if(t==='pan')vp.classList.add('mode-pan');else vp.classList.remove('mode-pan');
   vp.style.cursor=t==='erase'?'cell':t==='pan'?'grab':'crosshair';
 }
 
-function setColor(c,el){
+function setColor(c,el,set){
   color=c;
-  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('act'));
-  if(el)el.classList.add('act');
+  if(set==='d'||!set){document.querySelectorAll('.sw').forEach(s=>s.classList.remove('act'));if(el&&el.classList.contains('sw'))el.classList.add('act');}
+  if(set==='m'||!set){document.querySelectorAll('.msw').forEach(s=>s.classList.remove('act'));if(el&&el.classList.contains('msw'))el.classList.add('act');}
 }
 
-function setSize(s,btn){
+function setSize(s,btn,set){
   size=s;
-  document.querySelectorAll('.szb').forEach(b=>b.classList.remove('act'));
-  btn.classList.add('act');
+  if(set==='d'||!set){document.querySelectorAll('.szb').forEach(b=>b.classList.remove('act'));if(btn&&btn.classList.contains('szb'))btn.classList.add('act');}
+  if(set==='m'||!set){document.querySelectorAll('.mszb').forEach(b=>b.classList.remove('act'));if(btn&&btn.classList.contains('mszb'))btn.classList.add('act');}
 }
 
-function toggleStickerPanel(){document.getElementById('stickerPanel').classList.toggle('open');}
+function toggleSP(which){
+  const id=which==='mob'?'spMob':'spDesk';
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
 
 function pickSticker(type){
   stickerMode=type;
-  document.getElementById('stickerPanel').classList.remove('open');
-  document.querySelectorAll('.tb[id^="tool"]').forEach(b=>b.classList.remove('act'));
+  document.getElementById('spDesk').classList.remove('open');
+  document.getElementById('spMob').classList.remove('open');
+  document.querySelectorAll('.tb[id^="tool"],.mtb[id^="mtool"]').forEach(b=>b.classList.remove('act'));
   vp.style.cursor='copy';
-}
-
-function showMobHint(){
-  const h=document.getElementById('mobHint');
-  if(window.matchMedia('(pointer:coarse)').matches){
-    setTimeout(()=>{h.style.opacity='0';},4000);
-  } else {
-    h.style.opacity='0';
-  }
 }
 </script>
 </body>
