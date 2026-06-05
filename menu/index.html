@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orbital Kronnos — Panel</title>
+<link rel="icon" href="../images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:  #F5EBD6;
+  --cream2: #d8cdb3;
+  --gold:   #E2BF6E;
+  --gold2:  #C9A14A;
+  --gold3:  #B07D3B;
+  --dark:   #0a0807;
+  --dark2:  #161210;
+  --glow:   rgba(226,191,110,0.22);
+  --fd: "Orbitron","Cinzel",sans-serif;
+  --fs: "Cinzel",serif;
+  --fb: "Cormorant Garamond",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--dark);
+  color:var(--cream);
+  font-family:var(--fb);
+  font-size:18px;
+  line-height:1.65;
+  min-height:100vh;
+  overflow-x:hidden;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+
+.bg{position:fixed;inset:0;z-index:0;background:url('../images/fondo.png') center/cover no-repeat;filter:brightness(0.28) contrast(1.05);animation:bz 20s ease-in-out infinite alternate;}
+@keyframes bz{from{transform:scale(1);}to{transform:scale(1.07);}}
+.bgo{position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 0%,rgba(201,161,74,.1),transparent 60%),linear-gradient(180deg,rgba(10,8,7,.72),rgba(10,8,7,.45) 50%,rgba(10,8,7,.88));}
+
+.hdr{position:relative;z-index:10;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glow);background:rgba(10,8,7,.6);backdrop-filter:blur(12px);}
+.hdr-logo{font-family:var(--fd);font-weight:900;font-size:17px;letter-spacing:4px;color:var(--gold);}
+.hdr-logo em{font-style:normal;}
+.hdr-right{display:flex;align-items:center;gap:16px;}
+.hdr-user{font-family:var(--fd);font-size:10px;letter-spacing:3px;color:var(--cream2);text-transform:uppercase;}
+.hdr-logout{font-family:var(--fd);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cream2);border:1px solid var(--glow);padding:8px 18px;transition:all .25s;cursor:pointer;background:none;}
+.hdr-logout:hover{color:#c0392b;border-color:#c0392b;}
+
+main{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;}
+
+.welcome{font-family:var(--fd);font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:12px;display:flex;align-items:center;gap:10px;justify-content:center;}
+.welcome::before,.welcome::after{content:"";flex:1;height:1px;background:var(--glow);max-width:60px;}
+.panel-title{font-family:var(--fd);font-weight:900;font-size:32px;letter-spacing:4px;text-align:center;margin-bottom:8px;background:linear-gradient(180deg,#f0d488,var(--gold) 50%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;}
+.panel-sub{text-align:center;font-style:italic;color:var(--cream2);font-size:16px;margin-bottom:52px;}
+
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;width:100%;max-width:900px;}
+
+.menu-card{background:rgba(14,11,10,.92);border:1px solid var(--glow);backdrop-filter:blur(18px);padding:44px 36px;position:relative;cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s;animation:cin .75s ease-out both;text-decoration:none;display:block;}
+.menu-card:nth-child(2){animation-delay:.12s;}
+.menu-card:nth-child(3){animation-delay:.24s;}
+.menu-card:nth-child(4){animation-delay:.36s;}
+@keyframes cin{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.menu-card::before{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.menu-card:hover{transform:translateY(-8px);box-shadow:0 20px 48px rgba(201,161,74,.2);border-color:var(--gold);}
+
+.card-icon{font-size:48px;margin-bottom:20px;display:block;}
+.card-name{font-family:var(--fd);font-weight:900;font-size:16px;letter-spacing:4px;text-transform:uppercase;background:linear-gradient(180deg,#f0d488,var(--gold) 50%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px;}
+.card-desc{font-family:var(--fb);font-style:italic;color:var(--cream2);font-size:15px;line-height:1.6;}
+.card-arrow{font-family:var(--fd);font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-top:20px;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s;}
+.menu-card:hover .card-arrow{opacity:1;transform:translateX(0);}
+
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:2;}
+.o1{width:380px;height:380px;background:radial-gradient(circle,rgba(201,161,74,.08),transparent 70%);top:-100px;right:-80px;animation:of 13s ease-in-out infinite alternate;}
+.o2{width:280px;height:280px;background:radial-gradient(circle,rgba(201,161,74,.06),transparent 70%);bottom:5%;left:-70px;animation:of 17s 4s ease-in-out infinite alternate;}
+@keyframes of{from{transform:translate(0,0);}to{transform:translate(28px,18px);}}
+
+footer{position:relative;z-index:5;text-align:center;padding:20px;font-size:13px;color:var(--cream2);font-style:italic;border-top:1px solid var(--glow);background:rgba(10,8,7,.5);}
+
+@media(max-width:600px){
+  .hdr{padding:16px 20px;}
+  .panel-title{font-size:24px;}
+  .menu-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bgo"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+
+<header class="hdr">
+  <span class="hdr-logo">ORBITAL <em>KRONNOS</em></span>
+  <div class="hdr-right">
+    <span class="hdr-user" id="userDisplay"></span>
+    <button class="hdr-logout" onclick="doLogout()">Cerrar sesión</button>
+  </div>
+</header>
+
+<main>
+  <div class="welcome">— Panel de equipo —</div>
+  <h1 class="panel-title">Bienvenido</h1>
+  <p class="panel-sub" id="welcomeMsg">Selecciona una sección para continuar</p>
+
+  <div class="menu-grid">
+    <a href="../roborobin/" class="menu-card">
+      <span class="card-icon">🤖</span>
+      <div class="card-name">RoboRobin</div>
+      <p class="card-desc">Asistente de robótica con IA. Consulta reglas, estrategia, hardware y más para FTC &amp; FGC.</p>
+      <div class="card-arrow">Abrir →</div>
+    </a>
+
+    <a href="../estrategia/" class="menu-card">
+      <span class="card-icon">🏆</span>
+      <div class="card-name">Estrategia</div>
+      <p class="card-desc">Pizarrón de estrategia. Dibuja plays, anotaciones y planifica con el equipo sobre el campo.</p>
+      <div class="card-arrow">Abrir →</div>
+    </a>
+
+    <a href="../manual/" class="menu-card">
+      <span class="card-icon">📖</span>
+      <div class="card-name">Manual</div>
+      <p class="card-desc">Consulta el manual oficial del equipo en formato PDF directamente desde aquí.</p>
+      <div class="card-arrow">Abrir →</div>
+    </a>
+  </div>
+</main>
+
+<footer>© 2026 Orbital Kronnos · STEAM Maker Challenge · El Salvador</footer>
+
+<script>
+const SESSION_KEY = 'ok_session_v3';
+const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
+const SIGN_KEY    = 'OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper';
+const enc         = new TextEncoder();
+
+async function hmacHex(msg) {
+  const key = await crypto.subtle.importKey('raw', enc.encode(SIGN_KEY), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(msg));
+  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function constEq(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
+}
+
+async function validateSession() {
+  const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
+  if (!raw) return null;
+  try {
+    const { p, s } = JSON.parse(raw);
+    const expect = await hmacHex(p);
+    if (!constEq(expect, s)) { clearSessionData(); return null; }
+    const data = JSON.parse(p);
+    if (!data.u || Date.now() - data.ts > SESSION_TTL) { clearSessionData(); return null; }
+    return data;
+  } catch { clearSessionData(); return null; }
+}
+
+function clearSessionData() {
+  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
+}
+
+function doLogout() {
+  clearSessionData();
+  window.location.replace('../login/');
+}
+
+window.addEventListener('load', async () => {
+  const session = await validateSession();
+  if (!session) { window.location.replace('../login/'); return; }
+  document.getElementById('userDisplay').textContent = session.u;
+  document.getElementById('welcomeMsg').textContent = '¡Hola, ' + session.u + '! Selecciona una sección.';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orbital Kronnos — Manual</title>
+<link rel="icon" href="../images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5EBD6;--cream2:#d8cdb3;--gold:#E2BF6E;--gold2:#C9A14A;--gold3:#B07D3B;
+  --dark:#0a0807;--glow:rgba(226,191,110,0.22);
+  --fd:"Orbitron","Cinzel",sans-serif;--fb:"Cormorant Garamond",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--dark);color:var(--cream);font-family:var(--fb);min-height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+
+.hdr{flex-shrink:0;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glow);background:rgba(10,8,7,.9);backdrop-filter:blur(12px);z-index:10;}
+.hdr-logo{font-family:var(--fd);font-weight:900;font-size:15px;letter-spacing:4px;color:var(--gold);}
+.hdr-logo em{font-style:normal;}
+.hdr-center{display:flex;align-items:center;gap:12px;}
+.hdr-title{font-family:var(--fd);font-size:11px;letter-spacing:5px;color:var(--cream2);text-transform:uppercase;}
+.hdr-right{display:flex;gap:10px;align-items:center;}
+.hdr-back{font-family:var(--fd);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cream2);border:1px solid var(--glow);padding:7px 16px;transition:all .25s;text-decoration:none;}
+.hdr-back:hover{color:var(--gold);border-color:var(--gold);}
+.hdr-download{font-family:var(--fd);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--dark);background:linear-gradient(180deg,var(--gold),var(--gold3));border:none;padding:7px 16px;cursor:pointer;transition:all .25s;text-decoration:none;}
+.hdr-download:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(201,161,74,.3);}
+
+.pdf-wrap{flex:1;position:relative;overflow:hidden;}
+.pdf-wrap iframe{width:100%;height:100%;border:none;display:block;}
+
+.no-pdf{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:20px;padding:40px;text-align:center;}
+.no-pdf.show{display:flex;}
+.no-pdf-icon{font-size:64px;}
+.no-pdf h2{font-family:var(--fd);font-size:16px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;}
+.no-pdf p{font-style:italic;color:var(--cream2);font-size:16px;max-width:380px;line-height:1.7;}
+.no-pdf-hint{font-family:var(--fd);font-size:9px;letter-spacing:3px;color:var(--glow);text-transform:uppercase;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-logo">ORBITAL <em>KRONNOS</em></span>
+  <div class="hdr-center">
+    <span class="hdr-title">📖 Manual del equipo</span>
+  </div>
+  <div class="hdr-right">
+    <a href="../images/manual.pdf" download="manual-orbital-kronnos.pdf" class="hdr-download">⬇ Descargar</a>
+    <a href="../menu/" class="hdr-back">← Menú</a>
+  </div>
+</header>
+
+<div class="pdf-wrap" id="pdfWrap">
+  <iframe id="pdfFrame" src="../images/manual.pdf" title="Manual Orbital Kronnos"></iframe>
+  <div class="no-pdf" id="noPdf">
+    <div class="no-pdf-icon">📄</div>
+    <h2>Manual no disponible</h2>
+    <p>El archivo <code>manual.pdf</code> no se ha cargado aún. Agrégalo en la carpeta <code>images/</code>.</p>
+    <p class="no-pdf-hint">images/manual.pdf</p>
+  </div>
+</div>
+
+<script>
+const SESSION_KEY = 'ok_session_v3';
+const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
+const SIGN_KEY    = 'OK::sign::v3::OK::2026::orbital-kronnos::v3::pepper';
+const enc2        = new TextEncoder();
+
+async function hmacHex(msg) {
+  const key = await crypto.subtle.importKey('raw', enc2.encode(SIGN_KEY), {name:'HMAC',hash:'SHA-256'}, false, ['sign']);
+  const sig  = await crypto.subtle.sign('HMAC', key, enc2.encode(msg));
+  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function constEq(a,b){if(typeof a!=='string'||typeof b!=='string'||a.length!==b.length)return false;let r=0;for(let i=0;i<a.length;i++)r|=a.charCodeAt(i)^b.charCodeAt(i);return r===0;}
+async function validateSession(){
+  const raw=sessionStorage.getItem(SESSION_KEY)||localStorage.getItem(SESSION_KEY);
+  if(!raw)return null;
+  try{const{p,s}=JSON.parse(raw);const expect=await hmacHex(p);if(!constEq(expect,s))return null;const data=JSON.parse(p);if(!data.u||Date.now()-data.ts>SESSION_TTL)return null;return data;}catch{return null;}
+}
+
+window.addEventListener('load', async () => {
+  const sess = await validateSession();
+  if (!sess) { window.location.replace('../login/'); return; }
+
+  const frame = document.getElementById('pdfFrame');
+  frame.addEventListener('error', () => {
+    frame.style.display = 'none';
+    document.getElementById('noPdf').classList.add('show');
+  });
+
+  setTimeout(() => {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow?.document;
+      if (!doc || doc.body?.innerHTML === '') {
+        frame.style.display = 'none';
+        document.getElementById('noPdf').classList.add('show');
+      }
+    } catch {}
+  }, 1500);
+});
+</script>
+</body>
+</html>
